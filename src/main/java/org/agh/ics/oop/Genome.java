@@ -10,17 +10,24 @@ public class Genome {
         double side = Math.random(); //left < 0.5
         int size = parent1.genes.genes.size();
         int number1 = size*parent1.energy/(parent1.energy + parent2.energy);
-        genes = new ArrayList<>(size);
-        int start = 0;
-        if (side > 0.5) { start = size - number1;}
-        for (int i = start; i < number1; i++){
-            genes.set(i, parent1.genes.genes.get(i));
+        int number2 = size*parent2.energy/(parent1.energy + parent2.energy);
+        System.out.println(number1);
+        System.out.println(side);
+        System.out.println(size);
+        genes = new ArrayList<>();
+        Animal animal = parent1;
+        int number = number1;
+        if (side > 0.5) { animal = parent2;
+        number = number2;}
+        for (int i = 0; i < number; i++){
+            genes.add(animal.genes.genes.get(i));
         }
-        start = size - start;
-        for (int i = start; i < size - number1; i++){
-            genes.set(i, parent1.genes.genes.get(i));
+        if (animal == parent1) {animal = parent2;}
+        else {animal = parent1;}
+        for (int i = number; i < size; i++){
+            genes.add(animal.genes.genes.get(i));
         }
-        //child.genes.genes = genes;
+
     }
     //constructor for a new animal
     public Genome(int n){
@@ -33,6 +40,6 @@ public class Genome {
         this.genes = g;
     }
     public Genome getGenes() {
-        return (Genome) genes;
+        return this;
     }
 }
