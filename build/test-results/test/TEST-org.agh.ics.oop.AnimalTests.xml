@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.agh.ics.oop.AnimalTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-12-17T13:16:15" hostname="DESKTOP-M7EP362" time="0.032">
+<testsuite name="org.agh.ics.oop.AnimalTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-17T18:07:39" hostname="DESKTOP-M7EP362" time="0.043">
   <properties/>
-  <testcase name="eatTest()" classname="org.agh.ics.oop.AnimalTests" time="0.022"/>
-  <testcase name="childCreationTest()" classname="org.agh.ics.oop.AnimalTests" time="0.006"/>
+  <testcase name="eatTest()" classname="org.agh.ics.oop.AnimalTests" time="0.029"/>
+  <testcase name="childCreationTest()" classname="org.agh.ics.oop.AnimalTests" time="0.003"/>
+  <testcase name="deathTest()" classname="org.agh.ics.oop.AnimalTests" time="0.003"/>
   <testcase name="foodConflict()" classname="org.agh.ics.oop.AnimalTests" time="0.002"/>
   <testcase name="canReproduceTest()" classname="org.agh.ics.oop.AnimalTests" time="0.002"/>
-  <system-out><![CDATA[4
-0.7582808391560312
-8
-6
-0.07049819380227251
-8
-5
-0.18895057702759188
-8
-]]></system-out>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

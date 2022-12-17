@@ -9,5 +9,10 @@ public class World {
         System.out.println(parent2.genes.genes);
         Animal child = new Animal(parent1,parent2);
         System.out.println(child.genes.genes);
+        System.out.println(parent1.direction);
+        System.out.println(parent1.activeGene);
+        parent1.move();
+        System.out.println(parent1.direction);
+        System.out.println(parent1.vector);
     }
 }

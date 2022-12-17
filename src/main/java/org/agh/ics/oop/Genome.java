@@ -6,14 +6,15 @@ import java.util.List;
 public class Genome {
     List<Integer> genes;
     //constructor for an animal with parents
-    public Genome(Animal parent1,Animal parent2) {
-        double side = Math.random(); //left < 0.5
+    public Genome(Animal animal1,Animal animal2) {
+        double side = Math.random(); //left - parent1 < 0.5
+        Animal parent1;
+        Animal parent2;
+        if (animal1.energy > animal2.energy) {parent1 = animal1;parent2 = animal2;}
+        else {parent1 = animal2;parent2 = animal2;}
         int size = parent1.genes.genes.size();
         int number1 = size*parent1.energy/(parent1.energy + parent2.energy);
         int number2 = size*parent2.energy/(parent1.energy + parent2.energy);
-        System.out.println(number1);
-        System.out.println(side);
-        System.out.println(size);
         genes = new ArrayList<>();
         Animal animal = parent1;
         int number = number1;
@@ -34,7 +35,7 @@ public class Genome {
         List<Integer> g = new ArrayList<>(n);
         int rand;
         for (int i = 0; i < n; i++){
-            rand = (int) (Math.random() * n);
+            rand = (int) (Math.random() * 8);
             g.add(rand);
         }
         this.genes = g;
