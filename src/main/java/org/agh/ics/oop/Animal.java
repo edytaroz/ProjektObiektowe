@@ -1,6 +1,7 @@
 package org.agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Animal {
@@ -10,6 +11,8 @@ public class Animal {
     int age;
     int childCount;
     int activeGene;
+    int currentDay;
+    int plantsEaten;
     MapDirection direction;
     int dayOfDeath = -1;
     int childEnergy;//this is a parameter
@@ -18,19 +21,21 @@ public class Animal {
     int satietyLevel;//this is a parameter
     int energyLoss;//something like a parameter
     //this is a starting animal
-    public Animal(int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,Vector2d position){
+    public Animal(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,Vector2d position){
         //parameters section
         this.energy = energy;
         this.childEnergy = childEnergy;
         this.plantEnergy = plantEnergy;
         this.lenOfGenome = lenOfGenome;
         this.satietyLevel = satietyLevel;
-        this.energyLoss = 10;
+        this.energyLoss = energyLoss;
         //individual section
+        this.plantsEaten = 0;
         this.activeGene = (int) (Math.random() * lenOfGenome);
         this.vector = position;
         this.childCount = 0;
         this.age = 0;
+        this.currentDay = 0;
         Genome genome = new Genome(lenOfGenome);
         this.genes = genome.getGenes();
         int n = (int) (Math.random() * 8);
@@ -46,7 +51,8 @@ public class Animal {
         this.satietyLevel = parent1.satietyLevel;
         this.energyLoss = 10;
         //individual section
-        this.age = 10; //!!!!!!!!!!!!!!!!!!!!!!!!! fix this
+        this.plantsEaten = 0;
+        this.age = parent1.currentDay;
         this.vector = parent1.vector;
         this.activeGene = (int) (Math.random() * lenOfGenome);
         this.childCount = 0;
@@ -63,89 +69,48 @@ public class Animal {
     }
     public void eat(){
         this.energy += plantEnergy;
+        this.plantsEaten += 1;
     }
-    public boolean conflictFood(List<Animal> animals){
-        int maxEnergy = 0;
-        int countMax = 0;
-        int indMax = 0;
-        //energy condition
-        for (int i = 0; i < animals.size(); i++){
-            if (animals.get(i).energy > maxEnergy) {
-                maxEnergy = animals.get(i).energy;
-                countMax = 1;
-                indMax = i;
-            } else if (animals.get(i).energy == maxEnergy) {
-                countMax += 1;
-            }
-        }
-        if (countMax == 1){
-            animals.get(indMax).eat();
-            return true;
-        } else {
-            //age condition
-            List<Animal> animals2 = new ArrayList<>();
-            for (int i = 0; i < animals.size(); i++){
-                if (animals.get(i).energy == maxEnergy) {
-                    animals2.add(animals.get(i));
-                }
-            }
-            int maxAge = 0;
-            countMax = 0;
-            indMax = 0;
-            for (int i = 0; i < animals2.size(); i++){
-                if (animals2.get(i).age > maxAge) {
-                    maxAge = animals2.get(i).age;
-                    countMax = 1;
-                    indMax = i;
-                } else if (animals2.get(i).age == maxAge) {
-                    countMax += 1;
-                }
-            }
-            if (countMax == 1){
-                animals2.get(indMax).eat();
-                return true;
-            } else {
-                //childCount condition
-                List<Animal> animals3 = new ArrayList<>();
-                for (int i = 0; i < animals2.size(); i++){
-                    if (animals2.get(i).age == maxAge) {
-                        animals3.add(animals2.get(i));
-                    }
-                }
-                int maxChildCount = 0;
-                countMax = 0;
-                indMax = 0;
-                for (int i = 0; i < animals3.size(); i++){
-                    if (animals3.get(i).childCount > maxChildCount) {
-                        maxChildCount = animals3.get(i).childCount;
-                        countMax = 1;
-                        indMax = i;
-                    } else if (animals3.get(i).childCount == maxChildCount) {
-                        countMax += 1;
-                    }
-                }
-                if (countMax == 1) {
-                    animals3.get(indMax).eat();
-                    return true;
-                }
-                List<Animal> animals4 = new ArrayList<>();
-                for (int i = 0; i < animals3.size(); i++){
-                    if (animals3.get(i).childCount == maxChildCount) {
-                        animals4.add(animals3.get(i));
-                    }
-                }
-                int n = (int) (Math.random() * animals4.size());
-                animals4.get(n).eat();
-                return true;
-            }
-        }
+    public void conflictFood(List<Animal> animals){
+        animals.sort(new ReproductionComparator());
+        animals.get(0).eat();
     }
     public boolean canReproduce(Animal parent1, Animal parent2){
         return parent1.energy >= parent1.satietyLevel && parent2.energy >= parent2.satietyLevel;
     }
-    public boolean conflictReproduction(List<Animal> animals){//assumes there are at least 3 animals
-
-        return true;
+    public int getEnergy(){return this.energy;}
+    public int getAge(){return this.age;}
+    public int getChildCount(){return this.childCount;}
+    static class ReproductionComparator implements Comparator<Animal>{
+        public int compare(Animal a1, Animal a2){
+            int energyCompare = a2.getEnergy() - a1.getEnergy();
+            int ageCompare = a2.getAge() - a1.getAge();
+            int childCompare = a2.getChildCount() - a1.getChildCount();
+            if (energyCompare == 0){
+                if (ageCompare == 0){
+                    return childCompare;
+                } else{
+                    return ageCompare;
+                }
+            } else{
+                return energyCompare;
+            }
+        }
+    }
+    public List<Animal> conflictReproduction(List<Animal> animals){//assumes there are at least 2 animals
+        List<Animal> possibleParents = new ArrayList<>();
+        for (int i = 0; i < animals.size(); i++){
+            if (animals.get(i).energy >= animals.get(i).satietyLevel){
+                possibleParents.add(animals.get(i));
+            }
+        }
+        possibleParents.sort(new ReproductionComparator());
+        List<Animal> children = new ArrayList<>();
+        for (int i = 0; i < possibleParents.size()/2; i++){
+            Animal child = new Animal(possibleParents.get(2*i),possibleParents.get(2*i+1));
+            children.add(child);
+        }
+        return children;
     }
     public Vector2d getPosition() {return this.vector;}
     public boolean isAT(Vector2d position) {return this.vector.equals(position);}
@@ -163,16 +128,19 @@ public class Animal {
         } catch(NullPointerException e) {
             System.out.println("NullPointerException at move");
         }
-        this.activeGene += 1;
-        this.energy -= this.energyLoss;
     }
     public boolean checkDeath(){
         if (this.energy <= 0){
             if (this.dayOfDeath == -1) {
-                this.dayOfDeath = 10;//fix this !!!!!!!!!
+                this.dayOfDeath = this.currentDay;
             }
             return true;
         }
         return false;
+    }
+    public void dailyUpdate(){
+        this.currentDay += 1;
+        this.activeGene += 1;
+        this.energy -= this.energyLoss;
     }
 }
