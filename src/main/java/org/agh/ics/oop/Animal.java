@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Animal {
+public class Animal implements IMapElement {
     Vector2d vector;
     int energy;
     Genome genes;
@@ -142,5 +142,11 @@ public class Animal {
         this.currentDay += 1;
         this.activeGene += 1;
         this.energy -= this.energyLoss;
+    }
+    public String toString(){
+        return this.direction.toString();
+    }
+    public String getImagePath(){
+        return "";
     }
 }
