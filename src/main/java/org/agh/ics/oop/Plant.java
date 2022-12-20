@@ -1,32 +1,35 @@
 package org.agh.ics.oop;
 
-public class Plant {
-    private Vector2d position; // position on map
+public class Plant implements IMapElement {
+    private Vector2d vector; // position on map
     private double growingSpeed; // range <0;1>
     private int lifespan; // lifespan in days
     public boolean isAlive = true;
 
     // constructor with position assignment
-    public Plant(Vector2d position) {
-        this.position = position;
+    public Plant(Vector2d vector) {
+        this.vector = vector;
         this.growingSpeed = 1; // default growingSpeed
         this.lifespan = 10; // default lifespan
     }
 
     // constructor with custom growingSpeed and lifespan values
-    public Plant(Vector2d position, double growingSpeed, int lifespan) {
-        this.position = position;
+    public Plant(Vector2d vector, double growingSpeed, int lifespan) {
+        this.vector = vector;
         this.growingSpeed = growingSpeed;
         this.lifespan = lifespan;
     }
 
     @Override
-    public String toString() { return position.toString(); }
+    public String toString() { return vector.toString(); }
 
     // setters
-    public void setPosition(Vector2d position) { this.position = position; }
+    public void setVector(Vector2d vector) { this.vector = vector; }
 
     // getters
-    public Vector2d getPosition() { return position; }
+    public Vector2d getPosition() { return vector; }
     public double getGrowingSpeed() { return growingSpeed; }
+    public String getImagePath(){
+        return "";
+    }
 }
