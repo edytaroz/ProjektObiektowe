@@ -7,7 +7,6 @@ import java.util.List;
 public class Animal {
     Vector2d vector;
     int energy;
-    // dupa
     Genome genes;
     int age;
     int childCount;
