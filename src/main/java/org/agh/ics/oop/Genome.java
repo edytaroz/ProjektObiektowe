@@ -3,8 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Genome {
-    List<Integer> genes;
+public class Genome extends AbstractGenome {
     //constructor for an animal with parents
     public Genome(Animal animal1,Animal animal2) {
         double side = Math.random(); //left - parent1 < 0.5

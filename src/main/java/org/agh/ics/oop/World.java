@@ -14,5 +14,13 @@ public class World {
         parent1.move();
         System.out.println(parent1.direction);
         System.out.println(parent1.vector);
+        GenomeKorekta g = new GenomeKorekta(8);
+        System.out.println(g.genes);
+        g.mutate();
+        System.out.println(g.genes);
+        GenomeLosowe ge = new GenomeLosowe(8);
+        System.out.println(ge.genes);
+        ge.mutate();
+        System.out.println(ge.genes);
     }
 }
