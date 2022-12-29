@@ -61,14 +61,23 @@ public class AnimalTests {
     void deathTest(){
         Animal animal = new Animal(10,90,20,6,20,20,new Vector2d(2,2));
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         animal.move();
+        animal.dailyUpdate();
         Assertions.assertTrue(animal.checkDeath());
     }
     @Test
