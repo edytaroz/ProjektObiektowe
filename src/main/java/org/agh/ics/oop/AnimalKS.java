@@ -5,8 +5,8 @@ import java.util.List;
 
 //wariant Korekta i Szalony
 public class AnimalKS extends AnimalSzalony{
-    public AnimalKS(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position) {
-        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position);
+    public AnimalKS(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position, int minMutation, int maxMutation) {
+        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
         GenomeKorekta genome = new GenomeKorekta(lenOfGenome);
         this.genes = genome.getGenes();
     }

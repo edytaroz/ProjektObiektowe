@@ -6,6 +6,8 @@ import java.util.List;
 public class Genome extends AbstractGenome {
     //constructor for an animal with parents
     public Genome(Animal animal1,Animal animal2) {
+        this.maxMutation = Math.min(animal1.lenOfGenome,maxMutation);
+        this.minMutation = Math.max(0, animal1.minMutation);
         double side = Math.random(); //left - parent1 < 0.5
         Animal parent1;
         Animal parent2;

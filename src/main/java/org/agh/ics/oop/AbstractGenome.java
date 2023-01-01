@@ -6,9 +6,12 @@ import java.util.List;
 //default pełna losowość
 public class AbstractGenome implements IGenome {
     List<Integer> genes;
+    int minMutation;
+    int maxMutation;
     @Override
     public void mutate() {
-        int numOfGenes = (int) (Math.random() * genes.size());
+        int numOfGenes = (int) (Math.random() * (maxMutation - minMutation));
+        numOfGenes += minMutation;
         List<Integer> numbers = new ArrayList<>();
         int n;
         int i = 0;

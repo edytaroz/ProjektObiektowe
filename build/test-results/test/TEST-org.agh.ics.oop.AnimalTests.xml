@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.agh.ics.oop.AnimalTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-30T11:37:23" hostname="DESKTOP-M7EP362" time="0.023">
+<testsuite name="org.agh.ics.oop.AnimalTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-01-01T14:39:07" hostname="DESKTOP-M7EP362" time="0.031">
   <properties/>
-  <testcase name="conflictReproductionTest()" classname="org.agh.ics.oop.AnimalTests" time="0.023"/>
+  <testcase name="eatTest()" classname="org.agh.ics.oop.AnimalTests" time="0.022"/>
+  <testcase name="childCreationTest()" classname="org.agh.ics.oop.AnimalTests" time="0.002"/>
+  <testcase name="deathTest()" classname="org.agh.ics.oop.AnimalTests" time="0.002"/>
+  <testcase name="conflictReproductionTest()" classname="org.agh.ics.oop.AnimalTests" time="0.001"/>
+  <testcase name="foodConflict()" classname="org.agh.ics.oop.AnimalTests" time="0.0"/>
+  <testcase name="canReproduceTest()" classname="org.agh.ics.oop.AnimalTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -5,8 +5,8 @@ import java.util.List;
 
 //wariant Korekta i Predestynacja(Normalny)
 public class AnimalKN extends Animal {
-    public AnimalKN(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position) {
-        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position);
+    public AnimalKN(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position, int minMutation, int maxMutation) {
+        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
         GenomeKorekta genome = new GenomeKorekta(lenOfGenome);
         this.genes = genome.getGenes();
     }
