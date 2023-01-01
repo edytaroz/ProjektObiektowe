@@ -1,61 +1,20 @@
 package org.agh.ics.oop;
+import org.agh.ics.oop.gui.App;
+import javafx.application.Application;
 
 public class World {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        Animal parent1 = new Animal(10,150,50,8,10,20,new Vector2d(2,2));
-        Animal parent2 = new Animal(10,50,50,8,10,20,new Vector2d(2,2));
+        Animal parent1 = new AnimalLS(10,150,50,8,10,20,new Vector2d(2,2),2,4);
+        Animal parent2 = new AnimalLS(10,50,50,8,10,20,new Vector2d(2,2),2,4);
         System.out.println(parent1.genes.genes);
         System.out.println(parent2.genes.genes);
-        Animal child = new Animal(parent1,parent2);
+        Animal child = new AnimalLS(parent1,parent2);
         System.out.println(child.genes.genes);
-        System.out.println(parent1.direction);
-        System.out.println(parent1.activeGene);
-        parent1.move();
-        System.out.println(parent1.direction);
-        System.out.println(parent1.vector);
-        GenomeKorekta g = new GenomeKorekta(8);
-        System.out.println(g.genes);
-        g.mutate();
-        System.out.println(g.genes);
-        GenomeLosowe ge = new GenomeLosowe(8);
-        System.out.println(ge.genes);
-        ge.mutate();
-        System.out.println(ge.genes);
-        Animal cat = new AnimalSzalony(10,150,10,8,10,40,new Vector2d(1,1));
-        System.out.println(cat.genes.genes);
-        System.out.println(cat.vector);
-        System.out.println(cat.activeGene);
-        cat.move();
-        System.out.println(cat.vector);
-        Animal a1 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a2 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a3 = new AnimalLS(a1,a2);
-        a3.move();
-        System.out.println(a1.genes.genes);
-        System.out.println(a2.genes.genes);
-        System.out.println(a3.genes.genes);
-        System.out.println("----");
-        Animal a4 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a5 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a6 = new AnimalKS(a4,a5);
-        a6.move();
-        System.out.println(a4.genes.genes);
-        System.out.println(a5.genes.genes);
-        System.out.println(a6.genes.genes);
-        System.out.println("----");
-        Animal a7 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a8 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal a9 = new AnimalKN(a7,a8);
-        System.out.println(a7.genes.genes);
-        System.out.println(a8.genes.genes);
-        System.out.println(a9.genes.genes);
-        System.out.println("----");
-        Animal b4 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal b5 = new Animal(10,150,10,8,10,40,new Vector2d(1,1));
-        Animal b6 = new AnimalLN(b4,b5);
-        System.out.println(b4.genes.genes);
-        System.out.println(b5.genes.genes);
-        System.out.println(b6.genes.genes);
+        try {
+            Application.launch(App.class,args);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

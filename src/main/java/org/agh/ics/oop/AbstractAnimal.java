@@ -20,7 +20,9 @@ public class AbstractAnimal implements IAnimal, IMapElement {
     int plantEnergy;//this is a parameter
     int satietyLevel;//this is a parameter
     int energyLoss;//something like a parameter
-    public AbstractAnimal(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,Vector2d position){
+    int minMutation;// parameter
+    int maxMutation;//parameter
+    public AbstractAnimal(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,Vector2d position,int minMutation,int maxMutation){
         //parameters section
         this.energy = energy;
         this.childEnergy = childEnergy;
@@ -28,6 +30,8 @@ public class AbstractAnimal implements IAnimal, IMapElement {
         this.lenOfGenome = lenOfGenome;
         this.satietyLevel = satietyLevel;
         this.energyLoss = energyLoss;
+        this.maxMutation = maxMutation;
+        this.minMutation = minMutation;
         //individual section
         this.plantsEaten = 0;
         this.activeGene = (int) (Math.random() * lenOfGenome);
@@ -48,7 +52,9 @@ public class AbstractAnimal implements IAnimal, IMapElement {
         this.plantEnergy = parent1.plantEnergy;
         this.lenOfGenome = parent1.lenOfGenome;
         this.satietyLevel = parent1.satietyLevel;
-        this.energyLoss = 10;
+        this.maxMutation = parent1.maxMutation;
+        this.minMutation = parent1.minMutation;
+        this.energyLoss = parent1.energyLoss;
         //individual section
         this.plantsEaten = 0;
         this.age = parent1.currentDay;

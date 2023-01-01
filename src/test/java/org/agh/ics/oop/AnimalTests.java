@@ -9,10 +9,10 @@ import java.util.List;
 public class AnimalTests {
     @Test
     void childCreationTest(){
-        Animal parent1 = new Animal(10,100,50,8,10,20,new Vector2d(2,2));
-        Animal parent2 = new Animal(10,100,50,8,10,20,new Vector2d(2,2));
-        Animal parent3 = new Animal(10,150,50,8,10,20,new Vector2d(2,2));
-        Animal parent4 = new Animal(10,50,50,8,10,20,new Vector2d(2,2));
+        Animal parent1 = new Animal(10,100,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent2 = new Animal(10,100,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent3 = new Animal(10,150,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent4 = new Animal(10,50,50,8,10,20,new Vector2d(2,2),2,2);
         Animal child1 = new Animal(parent1,parent2);
         Animal child2 = new Animal(parent3,parent4);
         Assertions.assertEquals(200,parent3.energy+parent4.energy+child2.energy);
@@ -26,16 +26,16 @@ public class AnimalTests {
     }
     @Test
     void eatTest(){
-        Animal animal = new Animal(10,100,50,8,10,20,new Vector2d(2,2));
+        Animal animal = new Animal(10,100,50,8,10,20,new Vector2d(2,2),2,2);
         animal.eat();
         Assertions.assertEquals(animal.energy,animal.plantEnergy+100);
     }
     @Test
     void foodConflict(){
-        Animal animal1 = new Animal(10,150,50,8,10,20,new Vector2d(2,2));
-        Animal animal2 = new Animal(10,113,50,8,10,20,new Vector2d(2,2));
-        Animal animal3 = new Animal(10,113,50,8,10,20,new Vector2d(2,2));
-        Animal animal4 = new Animal(10,50,50,8,10,20,new Vector2d(2,2));
+        Animal animal1 = new Animal(10,150,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal animal2 = new Animal(10,113,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal animal3 = new Animal(10,113,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal animal4 = new Animal(10,50,50,8,10,20,new Vector2d(2,2),2,2);
         Animal child = new Animal(animal1,animal4);
         List<Animal> list = new ArrayList<>();
         list.add(animal1);
@@ -50,16 +50,16 @@ public class AnimalTests {
     }
     @Test
     void canReproduceTest(){
-        Animal parent1 = new Animal(10,100,50,8,10,20,new Vector2d(2,2));
-        Animal parent2 = new Animal(10,50,50,8,10,20,new Vector2d(2,2));
-        Animal parent3 = new Animal(10,100,50,8,10,20,new Vector2d(2,2));
-        Animal parent4 = new Animal(10,10,50,8,10,20,new Vector2d(2,2));
+        Animal parent1 = new Animal(10,100,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent2 = new Animal(10,50,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent3 = new Animal(10,100,50,8,10,20,new Vector2d(2,2),2,2);
+        Animal parent4 = new Animal(10,10,50,8,10,20,new Vector2d(2,2),2,2);
         Assertions.assertTrue(parent1.canReproduce(parent1,parent2));
         Assertions.assertFalse(parent3.canReproduce(parent3,parent4));
     }
     @Test
     void deathTest(){
-        Animal animal = new Animal(10,90,20,6,20,20,new Vector2d(2,2));
+        Animal animal = new Animal(10,90,20,6,20,20,new Vector2d(2,2),2,2);
         animal.move();
         animal.dailyUpdate();
         animal.move();
@@ -82,10 +82,10 @@ public class AnimalTests {
     }
     @Test
     void conflictReproductionTest(){
-        Animal animal1 = new Animal(10,100,20,6,20,20,new Vector2d(2,2));
-        Animal animal2 = new Animal(10,110,20,6,20,20,new Vector2d(2,2));
-        Animal animal3 = new Animal(10,90,20,6,20,20,new Vector2d(2,2));
-        Animal animal4 = new Animal(10,10,20,6,20,20,new Vector2d(2,2));
+        Animal animal1 = new Animal(10,100,20,6,20,20,new Vector2d(2,2),2,2);
+        Animal animal2 = new Animal(10,110,20,6,20,20,new Vector2d(2,2),2,2);
+        Animal animal3 = new Animal(10,90,20,6,20,20,new Vector2d(2,2),2,2);
+        Animal animal4 = new Animal(10,10,20,6,20,20,new Vector2d(2,2),2,2);
         List<Animal> animals = new ArrayList<>();
         animals.add(animal1);
         animals.add(animal2);

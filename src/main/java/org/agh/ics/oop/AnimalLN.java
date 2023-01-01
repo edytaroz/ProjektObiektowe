@@ -5,8 +5,8 @@ import java.util.List;
 
 //wariant Losowy i Predestynacja(Normalny)
 public class AnimalLN extends Animal {
-    public AnimalLN(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position) {
-        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position);
+    public AnimalLN(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel, Vector2d position,int minMutation, int maxMutation) {
+        super(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
         GenomeLosowe genome = new GenomeLosowe(lenOfGenome);
         this.genes = genome.getGenes();
     }
