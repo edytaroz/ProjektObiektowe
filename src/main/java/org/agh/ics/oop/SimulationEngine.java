@@ -10,7 +10,6 @@ import java.util.List;
 
 public class SimulationEngine implements IEngine, Runnable {
     private AbstractMap map;
-    List<Animal> animals;
     private IPositionChangeObserver observer;
     private ArrayList<Animal> animals;
     App app;
