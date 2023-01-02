@@ -2,6 +2,7 @@ package org.agh.ics.oop;
 
 import java.util.Objects;
 
+
 public class Vector2d {
     public final int x;
     public final int y;
@@ -10,9 +11,11 @@ public class Vector2d {
         this.x = x;
         this.y = y;
     }
+
     public int getX() {
         return this.x;
     }
+
     public int getY() {
         return this.y;
     }
@@ -42,6 +45,7 @@ public class Vector2d {
         int x = other.x + this.x;
         int y = other.y + this.y;
         Vector2d vector_other = new Vector2d(x, y);
+
         return vector_other;
     }
 
@@ -49,26 +53,33 @@ public class Vector2d {
         int x = other.x - this.x;
         int y = other.y - this.y;
         Vector2d vector_other = new Vector2d(x, y);
+
         return vector_other;
     }
 
     Vector2d opposite() {
         Vector2d vector_other = new Vector2d(-this.x, -this.y);
+
         return vector_other;
     }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
+
         if (!(other instanceof Vector2d)) {
             return false;
         }
+
         Vector2d that = (Vector2d) other;
+
         return that.x == this.x && that.y == this.y;
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.x,this.y);
+        return Objects.hash(this.x, this.y);
     }
 }

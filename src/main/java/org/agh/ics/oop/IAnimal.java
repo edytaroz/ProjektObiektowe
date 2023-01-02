@@ -2,6 +2,7 @@ package org.agh.ics.oop;
 
 import java.util.List;
 
+
 public interface IAnimal {
     void eat();
     void conflictFood(List<Animal> animals);
@@ -12,10 +13,9 @@ public interface IAnimal {
     Vector2d getPosition();
     List<Animal> conflictReproduction(List<Animal> animals);
     boolean checkDeath();
-    boolean isAT(Vector2d position);
+    boolean isAt(Vector2d position);
     void move();
     void dailyUpdate();
     String toString();
     String getImagePath();
-
 }

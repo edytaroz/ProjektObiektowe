@@ -1,5 +1,6 @@
 package org.agh.ics.oop;
 
+
 public class Plant implements IMapElement {
     private Vector2d vector; // position on map
     private double growingSpeed; // range <0;1>
@@ -21,15 +22,25 @@ public class Plant implements IMapElement {
     }
 
     @Override
-    public String toString() { return vector.toString(); }
+    public String toString() {
+        return vector.toString();
+    }
 
     // setters
-    public void setVector(Vector2d vector) { this.vector = vector; }
+    public void setVector(Vector2d vector) {
+        this.vector = vector;
+    }
 
     // getters
-    public Vector2d getPosition() { return vector; }
-    public double getGrowingSpeed() { return growingSpeed; }
-    public String getImagePath(){
+    public Vector2d getPosition() {
+        return vector;
+    }
+
+    public double getGrowingSpeed() {
+        return growingSpeed;
+    }
+
+    public String getImagePath() {
         return "src/main/resources/grass.jpg";
     }
 }

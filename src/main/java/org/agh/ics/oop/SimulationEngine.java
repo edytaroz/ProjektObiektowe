@@ -1,8 +1,10 @@
 package org.agh.ics.oop;
 
 import java.util.ArrayList;
+
 import org.agh.ics.oop.gui.App;
 import javafx.application.Platform;
+
 import java.util.List;
 
 
@@ -20,32 +22,41 @@ public class SimulationEngine implements IEngine, Runnable {
         this.map = map;
         this.observer = observer;
     }
-    public SimulationEngine(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,int minMutation,int maxMutation,int width, int height,int numAnimals, int numPlants, boolean genVariant, boolean animalVariant,boolean mapVariant,App app) {
+
+    public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
+                            int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
+                            int numPlants, boolean genVariant, boolean animalVariant, boolean mapVariant, App app) {
         if (mapVariant) {
             this.map = new KulaZiemska(width, height);
-        }else{
+        } else {
             this.map = new Portal(width, height);
         }
+
         this.animals = new ArrayList<>();
         this.app = app;
         this.numPlants = numPlants;
         map.addPlants(numPlants);
+
         if (!animalVariant && !genVariant) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
                 Vector2d position = new Vector2d(x, y);
-                Animal hedgehog = new AnimalKN(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
+                Animal hedgehog = new AnimalKN(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
+                        position, minMutation, maxMutation);
+
                 if (this.map.place(hedgehog)) {
                     this.animals.add(hedgehog);
                 }
             }
-        } else if (animalVariant && genVariant){
+        } else if (animalVariant && genVariant) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
                 Vector2d position = new Vector2d(x, y);
-                Animal hedgehog = new AnimalLS(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
+                Animal hedgehog = new AnimalLS(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
+                        position, minMutation, maxMutation);
+
                 if (this.map.place(hedgehog)) {
                     this.animals.add(hedgehog);
                 }
@@ -55,7 +66,9 @@ public class SimulationEngine implements IEngine, Runnable {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
                 Vector2d position = new Vector2d(x, y);
-                Animal hedgehog = new AnimalKS(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
+                Animal hedgehog = new AnimalKS(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
+                        position, minMutation, maxMutation);
+
                 if (this.map.place(hedgehog)) {
                     this.animals.add(hedgehog);
                 }
@@ -65,21 +78,24 @@ public class SimulationEngine implements IEngine, Runnable {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
                 Vector2d position = new Vector2d(x, y);
-                Animal hedgehog = new AnimalLN(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, position, minMutation, maxMutation);
+                Animal hedgehog = new AnimalLN(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
+                        position, minMutation, maxMutation);
+
                 if (this.map.place(hedgehog)) {
                     this.animals.add(hedgehog);
                 }
             }
         }
     }
-    public void changeState(){
-        synchronized (this){
+
+    public void changeState() {
+        synchronized (this) {
             this.isPaused = !isPaused;
             notifyAll();
         }
     }
 
-    public IWorldMap getMap(){
+    public IWorldMap getMap() {
         return this.map;
     }
 
@@ -90,7 +106,8 @@ public class SimulationEngine implements IEngine, Runnable {
     @Override
     public void run() {
         int day = 0;
-        while (day < 100){
+
+        while (day < 100) {
             map.day();
             map.addPlants(numPlants);
             Platform.runLater(new Runnable() {
@@ -99,17 +116,20 @@ public class SimulationEngine implements IEngine, Runnable {
                     app.update();
                 }
             });
+
             day += 1;
-            try{
+
+            try {
                 Thread.sleep(500);
-            }catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.out.println("Thread interrupted");
             }
-            synchronized (this){
-                while(isPaused){
+
+            synchronized (this) {
+                while (isPaused) {
                     try {
                         wait();
-                    } catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         System.out.println("Interrupted");
                     }
                 }

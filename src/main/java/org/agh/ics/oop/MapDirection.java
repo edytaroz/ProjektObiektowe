@@ -11,7 +11,7 @@ public enum MapDirection {
     WEST,
     EAST;
 
-    public MapDirection next () {
+    public MapDirection next() {
         switch (this) {
             case EAST: return MapDirection.SOUTHEAST;
             case SOUTH: return MapDirection.SOUTHWEST;
@@ -26,7 +26,7 @@ public enum MapDirection {
                 return null;
         }
     }
-    public MapDirection previous () {
+    public MapDirection previous() {
         switch (this) {
             case EAST: return MapDirection.NORTHEAST;
             case SOUTH: return MapDirection.SOUTHEAST;
@@ -41,7 +41,8 @@ public enum MapDirection {
                 return null;
         }
     }
-    public int MapDirectionToInt(MapDirection direction){
+
+    public int MapDirectionToInt(MapDirection direction) {
         switch (direction) {
             case NORTHEAST: return 1;
             case SOUTHEAST: return 3;
@@ -56,7 +57,8 @@ public enum MapDirection {
                 return -1;
         }
     }
-    public MapDirection intToMapDirection(int n){
+
+    public MapDirection intToMapDirection(int n) {
         switch (n) {
             case 1: return MapDirection.NORTHEAST;
             case 3: return MapDirection.SOUTHEAST;
@@ -89,7 +91,7 @@ public enum MapDirection {
         }
     }
 
-    public Vector2d toUnitVector () {
+    public Vector2d toUnitVector() {
         switch (this) {
             case EAST: return new Vector2d(1,0);
             case SOUTH: return new Vector2d(0,-1);

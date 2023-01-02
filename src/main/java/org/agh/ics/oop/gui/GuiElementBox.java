@@ -7,17 +7,18 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.agh.ics.oop.IMapElement;
 
-
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 
 public class GuiElementBox {
     Image image;
     ImageView imageView = new ImageView();
     VBox vBox = new VBox();
-    public GuiElementBox(IMapElement element){
-        try{
+
+    public GuiElementBox(IMapElement element) {
+        try {
             image = new Image(new FileInputStream(element.getImagePath()));
             imageView.setImage(image);
             imageView.setFitWidth(20);
@@ -29,6 +30,7 @@ public class GuiElementBox {
             throw new RuntimeException(e);
         }
     }
+
     public VBox getGui(){
         return vBox;
     }
