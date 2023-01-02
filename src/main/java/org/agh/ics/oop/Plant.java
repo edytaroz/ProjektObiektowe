@@ -30,6 +30,6 @@ public class Plant implements IMapElement {
     public Vector2d getPosition() { return vector; }
     public double getGrowingSpeed() { return growingSpeed; }
     public String getImagePath(){
-        return "";
+        return "src/main/resources/grass.jpg";
     }
 }

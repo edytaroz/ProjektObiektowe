@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //default pełna losowość
-public class AbstractGenome implements IGenome {
+public abstract class AbstractGenome implements IGenome {
     List<Integer> genes;
     int minMutation;
     int maxMutation;

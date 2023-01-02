@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class AbstractAnimal implements IAnimal, IMapElement {
+public abstract class AbstractAnimal implements IAnimal, IMapElement {
+    IWorldMap map;
     Vector2d vector;
     int energy;
     Genome genes;
@@ -46,6 +47,7 @@ public class AbstractAnimal implements IAnimal, IMapElement {
     }
     //this is a new animal
     public AbstractAnimal(Animal parent1, Animal parent2){
+        this.map = parent1.map;
         //parameters section
         this.energy = parent1.childEnergy;
         this.childEnergy = parent1.childEnergy;
@@ -120,7 +122,7 @@ public class AbstractAnimal implements IAnimal, IMapElement {
     public Vector2d getPosition() {return this.vector;}
     public boolean isAT(Vector2d position) {return this.vector.equals(position);}
     public void move(){
-        //assuming we can move
+        //not assuming we can move
         MapDirection newDirection = this.direction;
         try {
             for (int i = 0; i < this.genes.genes.get(activeGene % lenOfGenome); i++) {
@@ -128,8 +130,14 @@ public class AbstractAnimal implements IAnimal, IMapElement {
             }
             int x = this.vector.x + newDirection.toUnitVector().x;
             int y = this.vector.y + newDirection.toUnitVector().y;
-            this.direction = newDirection;
-            this.vector = new Vector2d(x,y);
+            Vector2d v = new Vector2d(x,y);
+            if (map.canMoveTo(v)){
+                this.vector = new Vector2d(x,y);
+                this.direction = newDirection;
+            } else {
+                map.Variant((Animal) this);
+            }
+
         } catch(NullPointerException e) {
             System.out.println("NullPointerException at move");
         }
@@ -147,11 +155,12 @@ public class AbstractAnimal implements IAnimal, IMapElement {
         this.currentDay += 1;
         this.activeGene += 1;
         this.energy -= this.energyLoss;
+        checkDeath();
     }
     public String toString(){
         return this.direction.toString();
     }
     public String getImagePath(){
-        return "";
+        return "src/main/resources/circle.png";
     }
 }
