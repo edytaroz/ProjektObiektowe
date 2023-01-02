@@ -18,11 +18,6 @@ public class SimulationEngine implements IEngine, Runnable {
     int numPlants;
     boolean isPaused = false;
 
-    public SimulationEngine(AbstractWorldMap map, IPositionChangeObserver observer) {
-        this.map = map;
-        this.observer = observer;
-    }
-
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants, boolean genVariant, boolean animalVariant, boolean mapVariant, App app) {
