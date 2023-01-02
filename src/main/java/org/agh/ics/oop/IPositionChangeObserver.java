@@ -1,7 +1,8 @@
 package org.agh.ics.oop;
 
+
 public interface IPositionChangeObserver {
-    default void change(SimulationEngine engine, AbstractWorldMap map) {
+    default void change(SimulationEngine engine, AbstractMap map) {
 
     }
 }

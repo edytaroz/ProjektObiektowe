@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class SimulationEngine implements IEngine, Runnable {
-    private AbstractWorldMap map;
+    private AbstractMap map;
     IWorldMap map;
     List<Animal> animals;
     private IPositionChangeObserver observer;
