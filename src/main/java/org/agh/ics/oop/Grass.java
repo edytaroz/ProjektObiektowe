@@ -7,6 +7,6 @@ public class Grass extends AbstractMapElement {
 
     @Override
     public String getImagePath() {
-        return null;
+        return "src/main/resources/grass.jpg";
     }
 }
