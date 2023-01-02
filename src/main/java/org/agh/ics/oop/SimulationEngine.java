@@ -10,7 +10,6 @@ import java.util.List;
 
 public class SimulationEngine implements IEngine, Runnable {
     private AbstractMap map;
-    IWorldMap map;
     List<Animal> animals;
     private IPositionChangeObserver observer;
     private ArrayList<Animal> animals;
@@ -90,7 +89,7 @@ public class SimulationEngine implements IEngine, Runnable {
         }
     }
 
-    public IWorldMap getMap() {
+    public AbstractMap getMap() {
         return this.map;
     }
 

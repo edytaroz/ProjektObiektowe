@@ -2,7 +2,5 @@ package org.agh.ics.oop;
 
 
 public interface IPositionChangeObserver {
-    default void change(SimulationEngine engine, AbstractMap map) {
-
-    }
+   void change(Vector2d oldPosition, Vector2d newPosition);
 }

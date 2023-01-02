@@ -6,4 +6,7 @@ public class Portal extends AbstractMap {
         this.width = width;
         this.height = height;
     }
+
+
+
 }

@@ -18,7 +18,7 @@ import java.util.Objects;
 public class App extends Application {
     public GridPane grid;
     public GridPane gridPane;
-    IWorldMap map;
+    AbstractMap map;
     SimulationEngine engine;
     boolean ready = false;
     boolean canStart = false;
