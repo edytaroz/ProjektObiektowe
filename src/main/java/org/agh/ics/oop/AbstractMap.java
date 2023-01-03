@@ -180,7 +180,11 @@ public abstract class AbstractMap {
             sum += animal.energy;
         }
 
-        return sum / animalsList.size();
+        if (animalsList.size() == 0) {
+            return 0;
+        } else {
+            return sum / animalsList.size();
+        }
     }
 
     public int getAvgLifespan() {
