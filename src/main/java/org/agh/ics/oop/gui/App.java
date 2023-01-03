@@ -45,6 +45,7 @@ public class App extends Application {
     boolean animalVariant;
     boolean mapVariant;
     boolean plantVariant;
+    boolean saveStats;
     boolean isPaused = false;
 
     @Override
@@ -76,7 +77,8 @@ public class App extends Application {
             primaryStage.hide();
             engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
                     minMutation, maxMutation, width, height,
-                    numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant, this);
+                    numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant,
+                    saveStats, this);
             map = engine.getMap();
             Label r = new Label();
             gridPane = new GridPane();
@@ -214,8 +216,11 @@ public class App extends Application {
         CheckBox s16 = new CheckBox("Toksyczne trupy");
         s15.setIndeterminate(false);
         VBox h16 = new VBox(s16);
+        CheckBox s17 = new CheckBox("Zapisz statystyki");
+        s17.setSelected(true);
+        VBox h17 = new VBox(s17);
         Label label = new Label();
-        VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, grid, hBox);
+        VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, grid, hBox);
         GridPane.setHalignment(label, HPos.CENTER);
         Scene scene = new Scene(vbox);
         primaryStage.setTitle("Getting parameters");
@@ -239,6 +244,7 @@ public class App extends Application {
             animalVariant = s14.isSelected();
             mapVariant = s15.isSelected();
             plantVariant = s16.isSelected();
+            saveStats = s17.isSelected();
 
             synchronized (this) {
                 canStart = true;
