@@ -15,6 +15,7 @@ public abstract class AbstractMap {
     protected Vector2d upperRight;
     protected int numOfGrass = 0;
     protected int freeFields = 0;
+    protected ArrayList<Vector2d> preferredFields = new ArrayList<>();
     protected int numEmpty; // number of empty cells
 
     public int getNumEmpty() {
