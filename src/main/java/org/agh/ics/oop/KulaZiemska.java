@@ -57,10 +57,7 @@ public class KulaZiemska extends AbstractMap {
 
         if (y > getUpperRight().y || y < getLowerLeft().y) {
             // kierunek na przeciwny
-            animal.direction = animal.direction.next();
-            animal.direction = animal.direction.next();
-            animal.direction = animal.direction.next();
-            animal.direction = animal.direction.next();
+            animal.direction = animal.direction.oposite();
         } else {
             animal.direction = newDirection;
         }

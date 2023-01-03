@@ -20,13 +20,6 @@ public class Portal extends AbstractMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        /*
-        return position.x < upperRight.x &&
-                position.x > lowerLeft.x &&
-                position.y < upperRight.y &&
-                position.y > lowerLeft.y;
-         */
-
         return true;
     }
 
@@ -34,6 +27,7 @@ public class Portal extends AbstractMap {
     public boolean place(Animal animal) {
         if (canMoveTo(animal.vector)) {
             animalsList.add(animal);
+
             if (animals.containsKey(animal.vector)) {
                 animals.get(animal.vector).add(animal);
             } else {
