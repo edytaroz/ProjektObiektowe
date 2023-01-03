@@ -1,9 +1,5 @@
 package org.agh.ics.oop;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,23 +13,18 @@ public class SimulationEngine implements IEngine, Runnable {
     private ArrayList<Animal> animals;
     App app;
     int numPlants;
-    boolean toxic;
-    boolean saveStats;
     boolean isPaused = false;
 
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants,
-                            boolean genVariant, boolean animalVariant, boolean mapVariant, boolean plantVariant,
-                            boolean saveStats, App app) {
+                            boolean genVariant, boolean animalVariant, boolean mapVariant, boolean portalVariant,
+                            App app) {
         if (mapVariant) {
             this.map = new KulaZiemska(width, height);
         } else {
             this.map = new Portal(width, height);
         }
-
-        this.toxic = plantVariant;
-        this.saveStats = saveStats;
 
         this.animals = new ArrayList<>();
         this.app = app;
@@ -110,36 +101,9 @@ public class SimulationEngine implements IEngine, Runnable {
     public void run() {
         int day = 0;
 
-        boolean fileCreated = false;
-        if (this.saveStats) {
-            File plik = new File("stats.txt");
-
-            try {
-                PrintWriter output = new PrintWriter("stats.txt");
-                output.print("Day,Animals,Plants,Average_energy,Average_children,Average_age,Average_lifespan");
-                fileCreated = true;
-                output.close();
-            } catch (Exception e) {
-                System.out.println("Problem z plikiem!");
-            }
-        }
-
-        while (day < 100) {
+        while (true) {
             map.day();
             map.addPlants(numPlants);
-
-            if (this.saveStats && fileCreated) {
-                try {
-                    BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", true));
-                    output.append("\n" + day);
-                    /*output.append("\n" + day + "," + animals.size() + "," + map.getPlants().size() + "," +
-                            map.getAverageEnergy() + "," + map.getAverageChildren() + "," + map.getAverageAge() + ","
-                            + map.getAverageLifespan()); */
-                    output.close();
-                } catch (Exception e) {
-                    System.out.println("Problem z plikiem!");
-                }
-            }
 
             Platform.runLater(new Runnable() {
                 @Override
