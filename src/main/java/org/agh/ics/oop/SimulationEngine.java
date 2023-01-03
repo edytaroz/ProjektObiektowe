@@ -17,11 +17,13 @@ public class SimulationEngine implements IEngine, Runnable {
 
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
-                            int numPlants, boolean genVariant, boolean animalVariant, boolean mapVariant, App app) {
+                            int numPlants,
+                            boolean genVariant, boolean animalVariant, boolean mapVariant, boolean plantVariant,
+                            App app) {
         if (mapVariant) {
-            this.map = new KulaZiemska(width, height);
+            this.map = new KulaZiemska(width, height, plantVariant);
         } else {
-            this.map = new Portal(width, height);
+            this.map = new Portal(width, height, plantVariant);
         }
 
         this.animals = new ArrayList<>();
@@ -102,6 +104,7 @@ public class SimulationEngine implements IEngine, Runnable {
         while (day < 100) {
             map.day();
             map.addPlants(numPlants);
+
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {

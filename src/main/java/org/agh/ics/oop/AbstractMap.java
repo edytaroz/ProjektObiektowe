@@ -13,6 +13,7 @@ public abstract class AbstractMap {
     protected Map<Vector2d, Plant> plants = new HashMap<>();
     protected Vector2d lowerLeft;
     protected Vector2d upperRight;
+    boolean plantVariant;
     protected int numEmpty; // number of empty cells
 
     public int getNumEmpty() {

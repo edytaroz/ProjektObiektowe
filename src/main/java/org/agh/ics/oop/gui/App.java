@@ -44,6 +44,8 @@ public class App extends Application {
     boolean genVariant;
     boolean animalVariant;
     boolean mapVariant;
+    boolean plantVariant;
+    boolean isPaused = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -74,7 +76,7 @@ public class App extends Application {
             primaryStage.hide();
             engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
                     minMutation, maxMutation, width, height,
-                    numAnimals, numPlants, genVariant, animalVariant, mapVariant, this);
+                    numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant, this);
             map = engine.getMap();
             Label r = new Label();
             gridPane = new GridPane();
@@ -209,8 +211,11 @@ public class App extends Application {
         CheckBox s15 = new CheckBox("Piekielny portal");
         s15.setIndeterminate(false);
         VBox h15 = new VBox(s15);
+        CheckBox s16 = new CheckBox("Toksyczne trupy");
+        s15.setIndeterminate(false);
+        VBox h16 = new VBox(s16);
         Label label = new Label();
-        VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, grid, hBox);
+        VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, grid, hBox);
         GridPane.setHalignment(label, HPos.CENTER);
         Scene scene = new Scene(vbox);
         primaryStage.setTitle("Getting parameters");
@@ -233,6 +238,7 @@ public class App extends Application {
             genVariant = s13.isSelected();
             animalVariant = s14.isSelected();
             mapVariant = s15.isSelected();
+            plantVariant = s16.isSelected();
 
             synchronized (this) {
                 canStart = true;

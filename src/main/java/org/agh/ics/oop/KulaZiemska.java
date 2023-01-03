@@ -2,12 +2,14 @@ package org.agh.ics.oop;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class KulaZiemska extends AbstractMap {
-    public KulaZiemska(int width, int height) {
+    public KulaZiemska(int width, int height, boolean plantVariant) {
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width, height);
+        this.plantVariant = plantVariant;
     }
 
     public Vector2d getUpperRight() {
@@ -52,8 +54,8 @@ public class KulaZiemska extends AbstractMap {
     @Override
     public void Variant(Animal animal) {
         MapDirection newDirection = animal.direction;
-        int x = animal.vector.x + newDirection.toUnitVector().x;
-        int y = animal.vector.y + newDirection.toUnitVector().y;
+        int x = animal.vector.x + Objects.requireNonNull(newDirection.toUnitVector()).x;
+        int y = animal.vector.y + Objects.requireNonNull(newDirection.toUnitVector()).y;
 
         if (y > getUpperRight().y || y < getLowerLeft().y) {
             // kierunek na przeciwny
