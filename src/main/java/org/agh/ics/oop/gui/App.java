@@ -1,6 +1,12 @@
 package org.agh.ics.oop.gui;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import org.agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +48,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         createParametersGetter(primaryStage);
+        primaryStage.setTitle("Start"); // title
 
         Thread mapCreation = new Thread(() -> {
             try {
@@ -64,7 +72,9 @@ public class App extends Application {
 
         Platform.runLater(() -> {
             primaryStage.hide();
-            engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel, minMutation, maxMutation, width, height, numAnimals, numPlants, genVariant, animalVariant, mapVariant, this);
+            engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
+                    minMutation, maxMutation, width, height,
+                    numAnimals, numPlants, genVariant, animalVariant, mapVariant, this);
             map = engine.getMap();
             Label r = new Label();
             gridPane = new GridPane();
@@ -75,6 +85,11 @@ public class App extends Application {
             Scene scene = new Scene(vBox);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("Animals Simulator"); // title
+            stage.getIcons().add(new Image(
+                    Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(
+                            "icon.jpg")))); // try catch // icon
+            //stage.setFullScreen(true); // full screen
             stage.show();
 
             synchronized (this) {
@@ -252,6 +267,20 @@ public class App extends Application {
         Label l = new Label("y\\x");
         GridPane.setHalignment(l, HPos.CENTER);
         gridPane.add(l, 0, 0);
+
+        // background
+        /*
+        RadialGradient gradient = new RadialGradient(
+                0, 0, 0, 0, 1, true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0, Color.web("#81c483")),
+                new Stop(1, Color.web("#fcc200")));
+
+        gridPane.setBackground(new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
+        */
+
+        gridPane.setBackground(new Background(new BackgroundFill(Color.web(
+                "#f2f0c4"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         for (int i = 1; i < map.getUpperRight().x + 2; i++) {
             Label label = new Label(String.format("%d", i - 1));

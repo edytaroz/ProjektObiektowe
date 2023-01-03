@@ -28,29 +28,30 @@ public class KulaZiemska extends AbstractMap {
 
     @Override
     public boolean place(Animal animal) {
-        if (canMoveTo(animal.vector)){
+        if (canMoveTo(animal.vector)) {
             animalsList.add(animal);
-            if (animals.containsKey(animal.vector)){
+            if (animals.containsKey(animal.vector)) {
                 animals.get(animal.vector).add(animal);
-            }else {
+            } else {
                 List<Animal> list = new ArrayList<>();
                 list.add(animal);
-                animals.put(animal.vector,list);
+                animals.put(animal.vector, list);
             }
 
             animal.map = this;
             return true;
         }
+
         return false;
     }
 
     @Override
-    public void Variant(Animal animal){
+    public void Variant(Animal animal) {
         MapDirection newDirection = animal.direction;
         int x = animal.vector.x + newDirection.toUnitVector().x;
         int y = animal.vector.y + newDirection.toUnitVector().y;
 
-        if (y > getUpperRight().y || y < getLowerLeft().y){
+        if (y > getUpperRight().y || y < getLowerLeft().y) {
             animal.direction = animal.direction.next();
             animal.direction = animal.direction.next();
             animal.direction = animal.direction.next();
@@ -64,7 +65,7 @@ public class KulaZiemska extends AbstractMap {
                 x = getUpperRight().x;
             }
 
-            animal.vector = new Vector2d(x,y);
+            animal.vector = new Vector2d(x, y);
         }
     }
 
@@ -73,12 +74,12 @@ public class KulaZiemska extends AbstractMap {
         List<IMapElement> listOfObjectsAtPosition = new ArrayList<>();
 
         // is animal?
-        if (animals.containsKey(position)){
+        if (animals.containsKey(position)) {
             listOfObjectsAtPosition.addAll(animals.get(position));
         }
 
         // is plant?
-        if (plants.containsKey(position)){
+        if (plants.containsKey(position)) {
             listOfObjectsAtPosition.add(plants.get(position));
         }
 
