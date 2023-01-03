@@ -84,8 +84,10 @@ public class App extends Application {
             gridPane = new GridPane();
             draw();
             gridPane.setGridLinesVisible(true);
-            //VBox vBox = new VBox(gridPane, pause());
-            VBox vBox = new VBox(gridPane);
+            Button b = pause();
+            HBox h = new HBox(b);
+            h.setAlignment(Pos.CENTER);
+            VBox vBox = new VBox(h,gridPane);
 
             Scene scene = new Scene(vBox);
             Stage stage = new Stage();
