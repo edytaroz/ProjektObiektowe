@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public abstract class AbstractAnimal implements IAnimal, IMapElement {
-    IWorldMap map;
+    AbstractMap map;
     Vector2d vector;
     int energy;
     Genome genes;

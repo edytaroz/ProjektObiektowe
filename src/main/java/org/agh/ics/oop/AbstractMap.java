@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public abstract class AbstractMap {
     protected Map<Vector2d, List<Animal>> animals = new HashMap<>();
     protected List<Animal> animalsList = new ArrayList<>();
@@ -26,11 +27,9 @@ public abstract class AbstractMap {
 
     // abstract classes
     public abstract boolean canMoveTo(Vector2d position);
-
     public abstract boolean place(Animal animal);
-
     public abstract void Variant(Animal animal);
-
+    public abstract List<IMapElement> objectAt(Vector2d position);
     // ----------
 
     public Vector2d getUpperRight() {
@@ -157,4 +156,3 @@ public abstract class AbstractMap {
         this.numEmpty = getNumEmpty();
     }
 }
-
