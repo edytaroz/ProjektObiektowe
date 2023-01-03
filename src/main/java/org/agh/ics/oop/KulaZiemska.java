@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-public class KulaZiemska extends AbstractMap {
-    public KulaZiemska(int width, int height) {
+public class Portal extends AbstractMap {
+    public Portal(int width, int height) {
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width, height);
     }
@@ -20,10 +20,14 @@ public class KulaZiemska extends AbstractMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
+        /*
         return position.x < upperRight.x &&
                 position.x > lowerLeft.x &&
                 position.y < upperRight.y &&
                 position.y > lowerLeft.y;
+         */
+
+        return true; // zawsze można się poruszyć
     }
 
     @Override
@@ -52,21 +56,22 @@ public class KulaZiemska extends AbstractMap {
         int y = animal.vector.y + newDirection.toUnitVector().y;
 
         if (y > getUpperRight().y || y < getLowerLeft().y) {
+            // kierunek na przeciwny
             animal.direction = animal.direction.next();
             animal.direction = animal.direction.next();
             animal.direction = animal.direction.next();
             animal.direction = animal.direction.next();
         } else {
             animal.direction = newDirection;
-
-            if (x > getUpperRight().x) {
-                x = 0;
-            } else {
-                x = getUpperRight().x;
-            }
-
-            animal.vector = new Vector2d(x, y);
         }
+
+        if (x > getUpperRight().x) {
+            x = 0;
+        } else if (x < getLowerLeft().x) {
+            x = getUpperRight().x;
+        }
+
+        animal.vector = new Vector2d(x, y);
     }
 
     @Override
