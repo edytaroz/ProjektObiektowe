@@ -3,7 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-//wariant Korekta i Predestynacja(Normalny)
+// wariant Korekta i Predestynacja(Normalny)
 
 
 public class AnimalKN extends Animal {

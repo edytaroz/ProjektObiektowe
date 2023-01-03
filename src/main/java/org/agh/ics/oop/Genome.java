@@ -22,8 +22,18 @@ public class Genome extends AbstractGenome {
         }
 
         int size = parent1.genes.genes.size();
-        int number1 = (size * parent1.energy) / (parent1.energy + parent2.energy);
-        int number2 = (size * parent2.energy) / (parent1.energy + parent2.energy);
+
+        int number1;
+        int number2;
+
+        if ((parent1.energy + parent2.energy) != 0) {
+            number1 = (size * parent1.energy) / (parent1.energy + parent2.energy);
+            number2 = (size * parent2.energy) / (parent1.energy + parent2.energy);
+        } else {
+            number1 = size / 2;
+            number2 = size / 2;
+        }
+
         genes = new ArrayList<>();
         Animal animal = parent1;
         int number = number1;

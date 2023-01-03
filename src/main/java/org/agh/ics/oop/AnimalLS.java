@@ -3,7 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-//wariant Losowy i Szalony
+// wariant Losowy i Szalony
 
 
 public class AnimalLS extends AnimalSzalony {

@@ -3,7 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-//wariant Korekta i Szalony
+// wariant Korekta i Szalony
 
 
 public class AnimalKS extends AnimalSzalony {

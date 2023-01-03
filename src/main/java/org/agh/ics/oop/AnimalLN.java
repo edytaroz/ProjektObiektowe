@@ -3,7 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-//wariant Losowy i Predestynacja(Normalny)
+// wariant Losowy i Predestynacja(Normalny)
 
 
 public class AnimalLN extends Animal {
