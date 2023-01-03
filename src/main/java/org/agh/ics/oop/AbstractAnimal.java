@@ -27,7 +27,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
 
     public AbstractAnimal(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,
                           Vector2d position,int minMutation,int maxMutation) {
-        //parameters section
+        // parameters section
         this.energy = energy;
         this.childEnergy = childEnergy;
         this.plantEnergy = plantEnergy;
@@ -37,7 +37,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         this.maxMutation = maxMutation;
         this.minMutation = minMutation;
 
-        //individual section
+        // individual section
         this.plantsEaten = 0;
         this.activeGene = (int) (Math.random() * lenOfGenome);
         this.vector = position;
@@ -50,11 +50,11 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         this.direction = MapDirection.EAST.intToMapDirection(n);
     }
 
-    //this is a new animal
+    // this is a new animal
     public AbstractAnimal(Animal parent1, Animal parent2){
         this.map = parent1.map;
 
-        //parameters section
+        // parameters section
         this.energy = parent1.childEnergy;
         this.childEnergy = parent1.childEnergy;
         this.plantEnergy = parent1.plantEnergy;
@@ -64,7 +64,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         this.minMutation = parent1.minMutation;
         this.energyLoss = parent1.energyLoss;
 
-        //individual section
+        // individual section
         this.plantsEaten = 0;
         this.age = parent1.currentDay;
         this.vector = parent1.vector;
@@ -75,7 +75,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         int n = (int) (Math.random() * 8);
         this.direction = MapDirection.EAST.intToMapDirection(n);
 
-        //updating the parents
+        // updating the parents
         int pEnergy = ((parent1.childEnergy*parent1.energy)/(parent2.energy+ parent1.energy));
         parent1.energy -= pEnergy;
         parent2.energy -= (this.childEnergy - pEnergy);

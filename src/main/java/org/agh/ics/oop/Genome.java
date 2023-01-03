@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Genome extends AbstractGenome {
-    //constructor for an animal with parents
+    // constructor for an animal with parents
     public Genome(Animal animal1, Animal animal2) {
         this.maxMutation = Math.min(animal1.lenOfGenome, maxMutation);
         this.minMutation = Math.max(0, animal1.minMutation);
@@ -50,7 +50,7 @@ public class Genome extends AbstractGenome {
         }
     }
 
-    //constructor for a new animal
+    // constructor for a new animal
     public Genome(int n) {
         List<Integer> g = new ArrayList<>(n);
         int rand;

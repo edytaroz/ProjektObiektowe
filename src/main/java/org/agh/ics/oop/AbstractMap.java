@@ -13,6 +13,8 @@ public abstract class AbstractMap {
     protected Map<Vector2d, Plant> plants = new HashMap<>();
     protected Vector2d lowerLeft;
     protected Vector2d upperRight;
+    protected int numOfGrass = 0;
+    protected int freeFields = 0;
     protected int numEmpty; // number of empty cells
 
     public int getNumEmpty() {
@@ -81,11 +83,20 @@ public abstract class AbstractMap {
 
                     if (!isOccupiedByGrass(vec)) {
                         plants.put(vec, new Plant(vec));
+                        numOfGrass += 1;
                         flag = false;
                     }
                 }
             }
         }
+    }
+
+    public int getNumOfGrass() {
+        return numOfGrass;
+    }
+
+    public int getFreeFields() {
+        return freeFields;
     }
 
     public void day() {
@@ -95,6 +106,7 @@ public abstract class AbstractMap {
             if (animalsList.get(i).dayOfDeath != -1) {
                 toDeleteFromList.add(animalsList.get(i));
                 deadAnimals.add(animalsList.get(i));
+                freeFields += 1;
             }
         }
 
@@ -113,7 +125,7 @@ public abstract class AbstractMap {
 
         }
 
-        //moving
+        // moving
         for (Animal animalFromList : animalsList) {
             animalFromList.move();
             //animalFromList.dailyUpdate();
@@ -121,7 +133,7 @@ public abstract class AbstractMap {
 
         newMap();
 
-        //eating
+        // eating
         for (List<Animal> list : animals.values()) {
             if (plants.containsKey(list.get(0).vector)) {
                 if (list.size() == 1) {
@@ -130,15 +142,17 @@ public abstract class AbstractMap {
                 } else if (list.size() > 1) {
                     list.get(0).conflictFood(list);
                     plants.remove(list.get(0).vector);
+                    freeFields += 1;
                 }
             }
         }
 
-        //reproduction
+        // reproduction
         List<Animal> toAdd = new ArrayList<>();
         for (List<Animal> list : animals.values()) {
             if (list.size() > 1) {
                 toAdd.addAll(list.get(0).conflictReproduction(list));
+                freeFields -= 1;
             }
         }
 
@@ -159,4 +173,45 @@ public abstract class AbstractMap {
 
         this.numEmpty = getNumEmpty();
     }
+
+    public int getAvgEnergy() {
+        int sum = 0;
+        for (Animal animal : animalsList) {
+            sum += animal.energy;
+        }
+
+        return sum / animalsList.size();
+    }
+     /*
+    public int getAvgLifespan() {
+        int sum = 0;
+        for (Animal animal : animalsList) {
+            sum += animal.dayOfDeath - animal.dayOfBirth;
+        }
+
+        return sum / animalsList.size();
+    }
+    */
+
+
+    /*
+    public int getMostPopularGenome() {
+        Map<String, Integer> genomes = new HashMap<>();
+        for (Animal animal : animalsList) {
+            if (genomes.containsKey(animal.genome)) {
+                genomes.put(animal.genome, genomes.get(animal.genome) + 1);
+            } else {
+                genomes.put(animal.genome, 1);
+            }
+        }
+
+        int max = 0;
+        for (int i : genomes.values()) {
+            if (i > max) {
+                max = i;
+            }
+        }
+
+        return max;
+    } */
 }
