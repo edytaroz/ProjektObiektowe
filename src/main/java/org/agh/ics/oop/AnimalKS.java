@@ -24,7 +24,7 @@ public class AnimalKS extends AnimalSzalony {
     public List<Animal> conflictReproduction(List<Animal> animals) { //assumes there are at least 2 animals
         List<Animal> possibleParents = new ArrayList<>();
         for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).energy >= animals.get(i).satietyLevel) {
+            if (animals.get(i).energy >= animals.get(i).satietyLevel && animals.get(i).energy >= animals.get(i).childEnergy) {
                 possibleParents.add(animals.get(i));
             }
         }
