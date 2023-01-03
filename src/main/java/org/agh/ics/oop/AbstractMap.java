@@ -72,14 +72,25 @@ public abstract class AbstractMap {
     public void addPlants(int numPlants) {
         int x;
         int y;
+        double r;
+        int x1 = upperRight.x/4;
+        int y1 = upperRight.y/4;
 
         if (numEmpty > numPlants) {
             for (int i = 0; i < numPlants; i++) {
                 boolean flag = true;
 
                 while (flag) {
-                    x = (int) (Math.random() * (upperRight.x + 1));
-                    y = (int) (Math.random() * (upperRight.y + 1));
+                    r = Math.random();
+                    if (r < 0.2) {
+                        x = (int) (Math.random() * (upperRight.x + 1));
+                        y = (int) (Math.random() * (upperRight.y + 1));
+                    }else{
+                        x = (int) (Math.random() * (upperRight.x - x1));
+                        y = (int) (Math.random() * (upperRight.y - y1));
+                        x += x1;
+                        y += y1;
+                    }
                     Vector2d vec = new Vector2d(x, y);
 
                     if (!isOccupiedByGrass(vec)) {
