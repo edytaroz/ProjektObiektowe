@@ -128,7 +128,7 @@ public class SimulationEngine implements IEngine, Runnable {
             if (this.saveStats && fileCreated) {
                 try {
                     BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", true));
-                    output.append("\n" + day + "," + animals.size() + "," + map.getNumOfGrass()+ "," +
+                    output.append("\n" + day + "," + map.animals.size() + "," + map.getNumOfGrass()+ "," +
                             map.getFreeFields() + "," + map.getMostPopularGenome() + "," +
                             map.getAvgEnergy() + "," + map.getAvgLifespan());
                     output.close();

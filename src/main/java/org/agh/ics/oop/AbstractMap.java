@@ -92,11 +92,11 @@ public abstract class AbstractMap {
     }
 
     public int getNumOfGrass() {
-        return numOfGrass;
+        return plants.size();
     }
 
     public int getFreeFields() {
-        return freeFields;
+        return numEmpty;
     }
 
     public void day() {
