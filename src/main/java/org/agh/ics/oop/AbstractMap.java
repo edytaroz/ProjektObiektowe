@@ -15,20 +15,24 @@ public abstract class AbstractMap {
     protected Vector2d upperRight;
     protected int numEmpty; // number of empty cells
 
-    public int getNumEmpty(){
+    public int getNumEmpty() {
         int n = 0;
-        for (Vector2d i : plants.keySet()){
-            if (animals.containsKey(i)){
+        for (Vector2d planPosition : plants.keySet()) {
+            if (animals.containsKey(planPosition)) {
                 n += 1;
             }
         }
-        return (upperRight.x+1)*(upperRight.y+1) - (animals.size() + plants.size() - n);
+
+        return (upperRight.x + 1) * (upperRight.y + 1) - (animals.size() + plants.size() - n);
     }
 
     // abstract classes
     public abstract boolean canMoveTo(Vector2d position);
+
     public abstract boolean place(Animal animal);
+
     public abstract void Variant(Animal animal);
+
     public abstract List<IMapElement> objectAt(Vector2d position);
     // ----------
 

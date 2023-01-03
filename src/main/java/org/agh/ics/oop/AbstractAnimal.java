@@ -202,6 +202,6 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     }
 
     public String getImagePath() {
-        return "src/main/resources/circle.png";
+        return "src/main/resources/hedgehog.jpg";
     }
 }

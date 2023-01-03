@@ -1,11 +1,10 @@
 package org.agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.agh.ics.oop.gui.App;
 import javafx.application.Platform;
-
-import java.util.List;
 
 
 public class SimulationEngine implements IEngine, Runnable {
