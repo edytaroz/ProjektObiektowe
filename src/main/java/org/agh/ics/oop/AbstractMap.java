@@ -25,7 +25,7 @@ public abstract class AbstractMap {
             }
         }
 
-        return (upperRight.x + 1) * (upperRight.y + 1) - (animals.size() + plants.size() - n);
+        return ((upperRight.x + 1) * (upperRight.y + 1)) - (animals.size() + plants.size() - n);
     }
 
     // abstract classes

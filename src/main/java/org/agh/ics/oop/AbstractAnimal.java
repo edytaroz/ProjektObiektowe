@@ -192,6 +192,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     }
     public void dailyUpdate() {
         this.currentDay += 1;
+        this.age += 1;
         this.activeGene += 1;
         this.energy -= this.energyLoss;
         checkDeath();
