@@ -62,6 +62,11 @@ public class KulaZiemska extends AbstractMap {
             animal.direction = animal.direction.oposite();
         } else {
             animal.direction = newDirection;
+            if (x > getUpperRight().x){
+                animal.vector = new Vector2d(0,y);
+            }else {
+                animal.vector = new Vector2d(getUpperRight().x,y);
+            }
         }
 
         if (x > getUpperRight().x) {

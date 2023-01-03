@@ -51,8 +51,8 @@ public class Portal extends AbstractMap {
         int y = animal.vector.y + newDirection.toUnitVector().y;
 
         if (y > getUpperRight().y || y < getLowerLeft().y || x > getUpperRight().x || x < getLowerLeft().x) {
-            x = (int) (Math.random() * getUpperRight().x);
-            y = (int) (Math.random() * getUpperRight().y);
+            x = (int) (Math.random() * (getUpperRight().x + 1));
+            y = (int) (Math.random() * (getUpperRight().y + 1));
         }
 
         animal.vector = new Vector2d(x, y);

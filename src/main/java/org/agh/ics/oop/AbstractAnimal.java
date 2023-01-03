@@ -171,6 +171,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
             if (map.canMoveTo(v)) {
                 this.vector = new Vector2d(x,y);
                 this.direction = newDirection;
+                map.Variant((Animal) this);
             } else {
                 map.Variant((Animal) this);
             }
