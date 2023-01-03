@@ -3,7 +3,7 @@ package org.agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-//default pełna losowość
+// default pełna losowość
 
 
 public abstract class AbstractGenome implements IGenome {
@@ -46,5 +46,10 @@ public abstract class AbstractGenome implements IGenome {
                 i += 1;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "" + genes;
     }
 }

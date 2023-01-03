@@ -182,36 +182,39 @@ public abstract class AbstractMap {
 
         return sum / animalsList.size();
     }
-     /*
+
     public int getAvgLifespan() {
         int sum = 0;
         for (Animal animal : animalsList) {
-            sum += animal.dayOfDeath - animal.dayOfBirth;
+            sum += animal.age;
         }
-
-        return sum / animalsList.size();
+         if (animalsList.size() == 0) {
+             return 0;
+         } else {
+             return sum / animalsList.size();
+         }
     }
-    */
 
-
-    /*
-    public int getMostPopularGenome() {
+    public String getMostPopularGenome() {
         Map<String, Integer> genomes = new HashMap<>();
+
         for (Animal animal : animalsList) {
-            if (genomes.containsKey(animal.genome)) {
-                genomes.put(animal.genome, genomes.get(animal.genome) + 1);
+            if (genomes.containsKey(animal.genes)) {
+                genomes.put(animal.genes.toString(), genomes.get(animal.genes) + 1);
             } else {
-                genomes.put(animal.genome, 1);
+                genomes.put(animal.genes.toString(), 1);
             }
         }
 
         int max = 0;
-        for (int i : genomes.values()) {
-            if (i > max) {
-                max = i;
+        String mostPopularGenome = "";
+        for (String genome : genomes.keySet()) {
+            if (genomes.get(genome) > max) {
+                max = genomes.get(genome);
+                mostPopularGenome = genome.toString();
             }
         }
 
-        return max;
-    } */
+        return mostPopularGenome;
+    }
 }
