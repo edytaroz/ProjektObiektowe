@@ -1,4 +1,4 @@
-Day,Animals,Plants,Average_energy,Average_children,Average_age,Average_lifespan
+Day,Animals,Plants,Free_fields,Most_popular_genome,Avg_energy,Avg_lifespan
 0
 1
 2
@@ -12,11 +12,3 @@ Day,Animals,Plants,Average_energy,Average_children,Average_age,Average_lifespan
 10
 11
 12
-13
-14
-15
-16
-17
-18
-19
-20

@@ -1,5 +1,9 @@
 package org.agh.ics.oop;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +17,21 @@ public class SimulationEngine implements IEngine, Runnable {
     private ArrayList<Animal> animals;
     App app;
     int numPlants;
+    boolean saveStats;
     boolean isPaused = false;
 
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants,
                             boolean genVariant, boolean animalVariant, boolean mapVariant, boolean portalVariant,
-                            App app) {
+                            boolean saveStats, App app) {
         if (mapVariant) {
             this.map = new KulaZiemska(width, height);
         } else {
             this.map = new Portal(width, height);
         }
 
+        this.saveStats = saveStats;
         this.animals = new ArrayList<>();
         this.app = app;
         this.numPlants = numPlants;
@@ -101,9 +107,33 @@ public class SimulationEngine implements IEngine, Runnable {
     public void run() {
         int day = 0;
 
+        boolean fileCreated = false;
+        if (this.saveStats) {
+            try {
+                BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", false));
+                output.write("Day,Animals,Plants,Free_fields,Most_popular_genome,Avg_energy,Avg_lifespan");
+                output.close();
+                fileCreated = true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
         while (true) {
             map.day();
             map.addPlants(numPlants);
+
+            if (this.saveStats && fileCreated) {
+                try {
+                    BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", true));
+                    output.append("\n" + day);
+                    output.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
             Platform.runLater(new Runnable() {
                 @Override
