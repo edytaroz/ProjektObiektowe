@@ -18,7 +18,8 @@ public class SimulationEngine implements IEngine, Runnable {
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants,
-                            boolean genVariant, boolean animalVariant, boolean mapVariant, App app) {
+                            boolean genVariant, boolean animalVariant, boolean mapVariant, boolean portalVariant,
+                            App app) {
         if (mapVariant) {
             this.map = new KulaZiemska(width, height);
         } else {
