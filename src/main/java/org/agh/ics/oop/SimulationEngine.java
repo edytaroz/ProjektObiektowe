@@ -101,7 +101,7 @@ public class SimulationEngine implements IEngine, Runnable {
     public void run() {
         int day = 0;
 
-        while (day < 100) {
+        while (true) {
             map.day();
             map.addPlants(numPlants);
 

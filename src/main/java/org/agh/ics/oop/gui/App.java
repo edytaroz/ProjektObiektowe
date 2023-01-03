@@ -82,7 +82,8 @@ public class App extends Application {
             gridPane = new GridPane();
             draw();
             gridPane.setGridLinesVisible(true);
-            VBox vBox = new VBox(gridPane, pause());
+            //VBox vBox = new VBox(gridPane, pause());
+            VBox vBox = new VBox(gridPane);
 
             Scene scene = new Scene(vBox);
             Stage stage = new Stage();
@@ -113,7 +114,7 @@ public class App extends Application {
         s1.setShowTickMarks(true);
         s1.setSnapToTicks(true);
         s1.setShowTickLabels(true);
-        VBox h1 = new VBox(s1, l1);
+        VBox h1 = new VBox(l1, s1);
         Slider s2 = new Slider(5, 20, 1);
         Label l2 = new Label("Map width");
         s2.setMajorTickUnit(5);
@@ -121,7 +122,7 @@ public class App extends Application {
         s2.setShowTickMarks(true);
         s2.setSnapToTicks(true);
         s2.setShowTickLabels(true);
-        VBox h2 = new VBox(s2, l2);
+        VBox h2 = new VBox(l2, s2);
         Slider s3 = new Slider(5, 10, 1);
         Label l3 = new Label("Number of animals");
         s3.setMajorTickUnit(5);
@@ -129,7 +130,7 @@ public class App extends Application {
         s3.setShowTickMarks(true);
         s3.setSnapToTicks(true);
         s3.setShowTickLabels(true);
-        VBox h3 = new VBox(s3, l3);
+        VBox h3 = new VBox(l3, s3);
         Slider s4 = new Slider(0, 15, 1);
         Label l4 = new Label("Number of plants");
         s4.setMajorTickUnit(5);
@@ -137,7 +138,7 @@ public class App extends Application {
         s4.setShowTickMarks(true);
         s4.setSnapToTicks(true);
         s4.setShowTickLabels(true);
-        VBox h4 = new VBox(s4, l4);
+        VBox h4 = new VBox(l4, s4);
         Slider s5 = new Slider(10, 50, 1);
         Label l5 = new Label("Plant energy");
         s5.setMajorTickUnit(5);
@@ -145,7 +146,7 @@ public class App extends Application {
         s5.setShowTickMarks(true);
         s5.setSnapToTicks(true);
         s5.setShowTickLabels(true);
-        VBox h5 = new VBox(s5, l5);
+        VBox h5 = new VBox(l5, s5);
         Slider s6 = new Slider(50, 300, 1);
         Label l6 = new Label("Animal energy");
         s6.setMajorTickUnit(10);
@@ -153,7 +154,7 @@ public class App extends Application {
         s6.setShowTickMarks(true);
         s6.setSnapToTicks(true);
         s6.setShowTickLabels(true);
-        VBox h6 = new VBox(s6, l6);
+        VBox h6 = new VBox(l6, s6);
         Slider s7 = new Slider(50, 100, 1);
         Label l7 = new Label("Child animal energy");
         s7.setMajorTickUnit(10);
@@ -161,7 +162,7 @@ public class App extends Application {
         s7.setShowTickMarks(true);
         s7.setSnapToTicks(true);
         s7.setShowTickLabels(true);
-        VBox h7 = new VBox(s7, l7);
+        VBox h7 = new VBox(l7, s7);
         Slider s8 = new Slider(20, 50, 1);
         Label l8 = new Label("Satiety level");
         s8.setMajorTickUnit(10);
@@ -169,7 +170,7 @@ public class App extends Application {
         s8.setShowTickMarks(true);
         s8.setSnapToTicks(true);
         s8.setShowTickLabels(true);
-        VBox h8 = new VBox(s8, l8);
+        VBox h8 = new VBox(l8, s8);
         Slider s9 = new Slider(5, 20, 1);
         Label l9 = new Label("Energy loss");
         s9.setMajorTickUnit(5);
@@ -177,7 +178,7 @@ public class App extends Application {
         s9.setShowTickMarks(true);
         s9.setSnapToTicks(true);
         s9.setShowTickLabels(true);
-        VBox h9 = new VBox(s9, l9);
+        VBox h9 = new VBox(l9, s9);
         Slider s10 = new Slider(2, 20, 1);
         Label l10 = new Label("Length of genome");
         s10.setMajorTickUnit(5);
@@ -185,7 +186,7 @@ public class App extends Application {
         s10.setShowTickMarks(true);
         s10.setSnapToTicks(true);
         s10.setShowTickLabels(true);
-        VBox h10 = new VBox(s10, l10);
+        VBox h10 = new VBox(l10, s10);
         Slider s11 = new Slider(0, 5, 1);
         Label l11 = new Label("Minimal amount of mutations");
         s11.setMajorTickUnit(5);
@@ -193,7 +194,7 @@ public class App extends Application {
         s11.setShowTickMarks(true);
         s11.setSnapToTicks(true);
         s11.setShowTickLabels(true);
-        VBox h11 = new VBox(s11, l11);
+        VBox h11 = new VBox(l11, s11);
         Slider s12 = new Slider(0, 15, 1);
         Label l12 = new Label("Maximal amount of mutations");
         s12.setMajorTickUnit(5);
@@ -201,7 +202,7 @@ public class App extends Application {
         s12.setShowTickMarks(true);
         s12.setSnapToTicks(true);
         s12.setShowTickLabels(true);
-        VBox h12 = new VBox(s12, l12);
+        VBox h12 = new VBox(l12, s12);
         CheckBox s13 = new CheckBox("Losowy genom");
         s13.setIndeterminate(false);
         VBox h13 = new VBox(s13);

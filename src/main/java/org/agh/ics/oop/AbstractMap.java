@@ -75,8 +75,8 @@ public abstract class AbstractMap {
                 boolean flag = true;
 
                 while (flag) {
-                    x = (int) (Math.random() * upperRight.x);
-                    y = (int) (Math.random() * upperRight.y);
+                    x = (int) (Math.random() * (upperRight.x + 1));
+                    y = (int) (Math.random() * (upperRight.y + 1));
                     Vector2d vec = new Vector2d(x, y);
 
                     if (!isOccupiedByGrass(vec)) {
