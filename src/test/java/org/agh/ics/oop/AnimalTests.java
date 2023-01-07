@@ -132,4 +132,30 @@ public class AnimalTests {
 
 
     }
+    @Test
+    void canMoveToTest(){
+        Animal animal = new Animal(10,100,20,8,30,20,new Vector2d(10,10),0,1);
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        animal.map = new KulaZiemska(10,10);
+        animal.genes.genes = list;
+        animal.direction = MapDirection.NORTH;
+        animal.activeGene = 0;
+        animal.move();
+        Assertions.assertTrue(animal.isAt(new Vector2d(10,10)));
+        Assertions.assertSame(animal.direction, MapDirection.SOUTH);
+        animal.direction = MapDirection.EAST;
+        animal.vector = new Vector2d(10,10);
+        animal.activeGene = 2;
+        animal.move();
+        Assertions.assertTrue(animal.isAt(new Vector2d(0,10)));
+        Assertions.assertSame(animal.direction, MapDirection.EAST);
+    }
 }

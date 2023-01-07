@@ -67,15 +67,8 @@ public class KulaZiemska extends AbstractMap {
             }else {
                 animal.vector = new Vector2d(getUpperRight().x,y);
             }
-        }
 
-        if (x > getUpperRight().x) {
-            x = 0;
-        } else if (x < getLowerLeft().x) {
-            x = getUpperRight().x;
         }
-
-        animal.vector = new Vector2d(x, y);
     }
 
     @Override

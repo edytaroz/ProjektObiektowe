@@ -170,7 +170,6 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
             if (map.canMoveTo(v)) {
                 this.vector = new Vector2d(x,y);
                 this.direction = newDirection;
-                //map.Variant((Animal) this);
             } else {
                 map.Variant((Animal) this);
             }
@@ -204,5 +203,17 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
 
     public String getImagePath() {
         return "src/main/resources/hedgehog.jpg";
+    }
+    public String getGenes(){
+        return this.genes.toString();
+    }
+    public boolean isDominant = false;
+
+    @Override
+    public boolean getDominant() {
+        return isDominant;
+    }
+    public void setDominant(boolean bool){
+        this.isDominant = bool;
     }
 }

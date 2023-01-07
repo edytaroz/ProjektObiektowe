@@ -17,39 +17,38 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
 public class App extends Application {
     public GridPane grid;
-    //public GridPane gridPane;
-    //AbstractMap map;
-    //SimulationEngine engine;
     boolean ready = false;
     boolean canStart = false;
 
     boolean isPaused = false;
+    static Image plant;
+    static Image animal;
+    public static Image getPlant(){
+        return plant;
+    }
+    public static Image getAnimal(){
+        return animal;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        try {
+            plant = new Image(new FileInputStream("src/main/resources/grass.jpg"));
+            animal = new Image(new FileInputStream("src/main/resources/hedgehog.jpg"));
+        } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
         createParametersGetter(primaryStage);
-        primaryStage.setTitle("Start"); // title
-/*
-        Thread mapCreation = new Thread(() -> {
-            try {
-                mapScene(primaryStage);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        Thread mapThread = new Thread(this::startEngine);
-        mapCreation.start();
-        mapThread.start();
-
- */
+        primaryStage.setTitle("Start");
     }
 
     public void mapScene(Stage primaryStage,int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
@@ -63,7 +62,6 @@ public class App extends Application {
         }
 
         Platform.runLater(() -> {
-            //primaryStage.hide();
             GridPane gridPane = new GridPane();
             AbstractMap map;
             SimulationEngine engine;
@@ -93,8 +91,6 @@ public class App extends Application {
                 engineThread.start();
             });
             startEngine.start();
-            //Thread mapThread = new Thread(this::startEngine(engine));
-            //mapThread.start();
             map = engine.getMap();
             Label r = new Label("           ");
             draw(gridPane,map);
@@ -103,7 +99,8 @@ public class App extends Application {
             Button getDominant = new Button("Show dominant");
             getDominant.setOnAction(action -> {
                 if (engine.getState()){
-                    System.out.println("Dominant");
+                    map.setDominant();
+                    showDominant(map);
                 }
             });
             HBox h = new HBox(b,r,getDominant);
@@ -336,6 +333,9 @@ public class App extends Application {
         gridPane.getChildren().clear();
         draw(gridPane,map);
         gridPane.setGridLinesVisible(true);
+        if (map.Dominant()){
+            showDominant(map);
+        }
     }
 
     public Button pause(SimulationEngine engine) {
@@ -351,7 +351,17 @@ public class App extends Application {
 
         return button;
     }
-    public void showDominant(SimulationEngine engine,IMap map){
-
+    public void showDominant(AbstractMap map){
+        String popularGenome = map.getMostPopularGenome();
+        Map<Vector2d,List<Animal>> hash = map.getAnimals();
+        for(List<Animal> animalList : hash.values()){
+            for(Animal animal : animalList){
+                if (Objects.equals(popularGenome, animal.getGenes())){
+                    animal.setDominant(true);
+                }else {
+                    animal.setDominant(false);
+                }
+            }
+        }
     }
 }

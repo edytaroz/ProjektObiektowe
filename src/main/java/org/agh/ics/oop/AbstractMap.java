@@ -14,6 +14,7 @@ public abstract class AbstractMap {
     protected Vector2d lowerLeft;
     protected Vector2d upperRight;
     protected int numOfGrass = 0;
+    protected boolean isDominant = false;
     protected int freeFields = 0;
     protected ArrayList<Vector2d> preferredFields = new ArrayList<>();
     protected int numEmpty; // number of empty cells
@@ -215,8 +216,8 @@ public abstract class AbstractMap {
         Map<String, Integer> genomes = new HashMap<>();
 
         for (Animal animal : animalsList) {
-            if (genomes.containsKey(animal.genes)) {
-                genomes.put(animal.genes.toString(), genomes.get(animal.genes) + 1);
+            if (genomes.containsKey(animal.genes.toString())) {
+                genomes.put(animal.genes.toString(), genomes.get(animal.genes.toString()) + 1);
             } else {
                 genomes.put(animal.genes.toString(), 1);
             }
@@ -232,5 +233,14 @@ public abstract class AbstractMap {
         }
 
         return mostPopularGenome;
+    }
+    public Map<Vector2d, List<Animal>> getAnimals(){
+        return animals;
+    }
+    public void setDominant(){
+        isDominant = !isDominant;
+    }
+    public boolean Dominant(){
+        return isDominant;
     }
 }

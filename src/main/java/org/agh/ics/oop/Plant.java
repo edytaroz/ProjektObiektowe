@@ -36,6 +36,11 @@ public class Plant implements IMapElement {
         return vector;
     }
 
+    @Override
+    public boolean getDominant() {
+        return false;
+    }
+
     public double getGrowingSpeed() {
         return growingSpeed;
     }
