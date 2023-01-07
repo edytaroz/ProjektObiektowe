@@ -23,7 +23,7 @@ public class GuiElementBox {
             imageView.setImage(image);
             imageView.setFitWidth(20);
             imageView.setFitHeight(20);
-            Label label = new Label(element.getPosition().toString());
+            Label label = new Label(element.toString());
             vBox.getChildren().addAll(imageView,label);
             vBox.setAlignment(Pos.CENTER);
         } catch (FileNotFoundException e){

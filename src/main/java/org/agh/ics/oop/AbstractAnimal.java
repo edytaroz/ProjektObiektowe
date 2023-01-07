@@ -165,8 +165,6 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
             }
             int x = this.vector.x + newDirection.toUnitVector().x;
             int y = this.vector.y + newDirection.toUnitVector().y;
-            System.out.println(x);
-            System.out.println(y);
             Vector2d v = new Vector2d(x,y);
 
             if (map.canMoveTo(v)) {
@@ -201,7 +199,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     }
 
     public String toString() {
-        return this.direction.toString();
+        return String.valueOf(this.energy);
     }
 
     public String getImagePath() {

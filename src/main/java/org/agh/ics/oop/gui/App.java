@@ -96,11 +96,17 @@ public class App extends Application {
             //Thread mapThread = new Thread(this::startEngine(engine));
             //mapThread.start();
             map = engine.getMap();
-            Label r = new Label();
+            Label r = new Label("           ");
             draw(gridPane,map);
             gridPane.setGridLinesVisible(true);
             Button b = pause(engine);
-            HBox h = new HBox(b);
+            Button getDominant = new Button("Show dominant");
+            getDominant.setOnAction(action -> {
+                if (engine.getState()){
+                    System.out.println("Dominant");
+                }
+            });
+            HBox h = new HBox(b,r,getDominant);
             h.setAlignment(Pos.CENTER);
             VBox vBox = new VBox(h,gridPane);
 
@@ -344,5 +350,8 @@ public class App extends Application {
         });
 
         return button;
+    }
+    public void showDominant(SimulationEngine engine,IMap map){
+
     }
 }

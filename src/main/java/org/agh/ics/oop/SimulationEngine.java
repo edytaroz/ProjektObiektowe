@@ -96,6 +96,9 @@ public class SimulationEngine implements IEngine, Runnable {
             notifyAll();
         }
     }
+    public boolean getState(){
+        return isPaused;
+    }
 
     public AbstractMap getMap() {
         return this.map;

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.agh.ics.oop.AnimalTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-01-02T10:43:34" hostname="DESKTOP-M7EP362" time="0.175">
+<testsuite name="org.agh.ics.oop.AnimalTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-01-07T10:51:09" hostname="DESKTOP-M7EP362" time="0.037">
   <properties/>
-  <testcase name="eatTest()" classname="org.agh.ics.oop.AnimalTests" time="0.095"/>
-  <testcase name="childCreationTest()" classname="org.agh.ics.oop.AnimalTests" time="0.011"/>
-  <testcase name="deathTest()" classname="org.agh.ics.oop.AnimalTests" time="0.028"/>
-  <testcase name="conflictReproductionTest()" classname="org.agh.ics.oop.AnimalTests" time="0.009"/>
-  <testcase name="foodConflict()" classname="org.agh.ics.oop.AnimalTests" time="0.008"/>
-  <testcase name="canReproduceTest()" classname="org.agh.ics.oop.AnimalTests" time="0.008"/>
-  <system-out><![CDATA[NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
-NullPointerException at move
+  <testcase name="moveTest()" classname="org.agh.ics.oop.AnimalTests" time="0.037"/>
+  <system-out><![CDATA[5
+6
+6
+7
+7
+6
+6
+6
+7
+6
+6
+7
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
