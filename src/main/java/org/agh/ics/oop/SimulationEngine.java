@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.layout.GridPane;
 import org.agh.ics.oop.gui.App;
 import javafx.application.Platform;
 
@@ -16,6 +17,7 @@ public class SimulationEngine implements IEngine, Runnable {
     private IPositionChangeObserver observer;
     private ArrayList<Animal> animals;
     App app;
+    GridPane gridPane;
     int numPlants;
     boolean saveStats;
     boolean isPaused = false;
@@ -24,13 +26,13 @@ public class SimulationEngine implements IEngine, Runnable {
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants,
                             boolean genVariant, boolean animalVariant, boolean mapVariant, boolean portalVariant,
-                            boolean saveStats, App app) {
+                            boolean saveStats, App app, GridPane gridPane) {
         if (mapVariant) {
             this.map = new KulaZiemska(width, height);
         } else {
             this.map = new Portal(width, height);
         }
-
+        this.gridPane = gridPane;
         this.saveStats = saveStats;
         this.animals = new ArrayList<>();
         this.app = app;
@@ -140,7 +142,7 @@ public class SimulationEngine implements IEngine, Runnable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    app.update();
+                    app.update(gridPane,map);
                 }
             });
 

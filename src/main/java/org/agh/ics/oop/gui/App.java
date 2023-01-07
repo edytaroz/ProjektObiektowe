@@ -24,35 +24,19 @@ import java.util.Objects;
 
 public class App extends Application {
     public GridPane grid;
-    public GridPane gridPane;
-    AbstractMap map;
-    SimulationEngine engine;
+    //public GridPane gridPane;
+    //AbstractMap map;
+    //SimulationEngine engine;
     boolean ready = false;
     boolean canStart = false;
-    int energy;
-    int energyLoss;
-    int childEnergy;
-    int lenOfGenome;
-    int plantEnergy;
-    int satietyLevel;
-    int minMutation;
-    int maxMutation;
-    int width;
-    int height;
-    int numAnimals;
-    int numPlants;
-    boolean genVariant;
-    boolean animalVariant;
-    boolean mapVariant;
-    boolean plantVariant;
-    boolean saveStats;
+
     boolean isPaused = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         createParametersGetter(primaryStage);
         primaryStage.setTitle("Start"); // title
-
+/*
         Thread mapCreation = new Thread(() -> {
             try {
                 mapScene(primaryStage);
@@ -64,9 +48,14 @@ public class App extends Application {
         Thread mapThread = new Thread(this::startEngine);
         mapCreation.start();
         mapThread.start();
+
+ */
     }
 
-    public void mapScene(Stage primaryStage) throws InterruptedException {
+    public void mapScene(Stage primaryStage,int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
+                         int minMutation, int maxMutation, int width, int height,
+                         int numAnimals, int numPlants, boolean genVariant, boolean animalVariant, boolean mapVariant, boolean plantVariant,
+                         boolean saveStats) throws InterruptedException {
         synchronized (this) {
             if (!canStart) {
                 wait();
@@ -74,17 +63,43 @@ public class App extends Application {
         }
 
         Platform.runLater(() -> {
-            primaryStage.hide();
+            //primaryStage.hide();
+            GridPane gridPane = new GridPane();
+            AbstractMap map;
+            SimulationEngine engine;
             engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
                     minMutation, maxMutation, width, height,
                     numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant,
-                    saveStats, this);
+                    saveStats, this,gridPane);
+            Thread startEngine = new Thread(() -> {
+                synchronized (this) {
+                    try {
+                        while (!ready) {
+                            wait();
+                        }
+                    } catch (InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+                Thread engineThread = new Thread(() -> {
+                    try {
+                        engine.run();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+
+                engineThread.start();
+            });
+            startEngine.start();
+            //Thread mapThread = new Thread(this::startEngine(engine));
+            //mapThread.start();
             map = engine.getMap();
             Label r = new Label();
-            gridPane = new GridPane();
-            draw();
+            draw(gridPane,map);
             gridPane.setGridLinesVisible(true);
-            Button b = pause();
+            Button b = pause(engine);
             HBox h = new HBox(b);
             h.setAlignment(Pos.CENTER);
             VBox vBox = new VBox(h,gridPane);
@@ -231,24 +246,14 @@ public class App extends Application {
         primaryStage.show();
 
         button.setOnAction(action -> {
-            height = (int) s1.getValue();
-            width = (int) s2.getValue();
-            numAnimals = (int) s3.getValue();
-            numPlants = (int) s4.getValue();
-            plantEnergy = (int) s5.getValue();
-            energy = (int) s6.getValue();
-            childEnergy = (int) s7.getValue();
-            satietyLevel = (int) s8.getValue();
-            energyLoss = (int) s9.getValue();
-            lenOfGenome = (int) s10.getValue();
-            minMutation = (int) s11.getValue();
-            maxMutation = (int) s12.getValue();
-            genVariant = s13.isSelected();
-            animalVariant = s14.isSelected();
-            mapVariant = s15.isSelected();
-            plantVariant = s16.isSelected();
-            saveStats = s17.isSelected();
-
+            Thread mapCreation = new Thread(() -> {
+                try {
+                    mapScene(primaryStage, (int) s9.getValue(), (int) s6.getValue(), (int) s7.getValue(), (int) s10.getValue(), (int) s5.getValue(), (int) s8.getValue(), (int) s11.getValue(), (int) s12.getValue(), (int) s2.getValue(), (int) s1.getValue(), (int) s3.getValue(), (int) s4.getValue(),(boolean) s13.isSelected(), (boolean) s14.isSelected(), (boolean) s15.isSelected(), (boolean) s16.isSelected(), (boolean) s17.isSelected());
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+            mapCreation.start();
             synchronized (this) {
                 canStart = true;
                 notifyAll();
@@ -256,29 +261,8 @@ public class App extends Application {
         });
     }
 
-    public void startEngine() {
-        synchronized (this) {
-            try {
-                while (!ready) {
-                    wait();
-                }
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        }
 
-        Thread engineThread = new Thread(() -> {
-            try {
-                engine.run();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        engineThread.start();
-    }
-
-    public void draw() {
+    public void draw(GridPane gridPane, AbstractMap map) {
         Label l = new Label("y\\x");
         GridPane.setHalignment(l, HPos.CENTER);
         gridPane.add(l, 0, 0);
@@ -341,15 +325,15 @@ public class App extends Application {
         }
     }
 
-    public void update() {
+    public void update(GridPane gridPane, AbstractMap map) {
         gridPane.setGridLinesVisible(false);
         gridPane.getChildren().clear();
-        draw();
+        draw(gridPane,map);
         gridPane.setGridLinesVisible(true);
     }
 
-    public Button pause() {
-        Button button = new Button("Play");
+    public Button pause(SimulationEngine engine) {
+        Button button = new Button("Pause");
         button.setOnAction(e -> {
             engine.changeState();
 
