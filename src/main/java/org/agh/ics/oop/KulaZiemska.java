@@ -22,14 +22,14 @@ public class KulaZiemska extends AbstractMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        /*
+
         return position.x < upperRight.x &&
                 position.x > lowerLeft.x &&
                 position.y < upperRight.y &&
                 position.y > lowerLeft.y;
-         */
 
-        return true; // zawsze można się poruszyć
+
+        //return true; // zawsze można się poruszyć
     }
 
     @Override

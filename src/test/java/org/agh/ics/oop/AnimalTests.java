@@ -95,4 +95,41 @@ public class AnimalTests {
         Assertions.assertEquals(90,animal3.energy);
         Assertions.assertEquals(1,animals1.size());
     }
+    @Test
+    void moveTest(){
+        Animal animal = new Animal(10,100,20,8,30,20,new Vector2d(5,5),0,1);
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        animal.map = new KulaZiemska(20,20);
+        animal.genes.genes = list;
+        animal.direction = MapDirection.NORTH;
+        animal.activeGene = 0;
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(5,6));
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(6,7));
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(7,6));
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(6,6));
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(7,6));
+        animal.move();
+        animal.activeGene += 1;
+        Assertions.assertEquals(animal.vector, new Vector2d(6,7));
+
+
+    }
 }

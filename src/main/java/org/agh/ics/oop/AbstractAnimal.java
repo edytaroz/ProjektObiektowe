@@ -163,15 +163,16 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
             for (int i = 0; i < this.genes.genes.get(activeGene % lenOfGenome); i++) {
                 newDirection = newDirection.next();
             }
-
             int x = this.vector.x + newDirection.toUnitVector().x;
             int y = this.vector.y + newDirection.toUnitVector().y;
+            System.out.println(x);
+            System.out.println(y);
             Vector2d v = new Vector2d(x,y);
 
             if (map.canMoveTo(v)) {
                 this.vector = new Vector2d(x,y);
                 this.direction = newDirection;
-                map.Variant((Animal) this);
+                //map.Variant((Animal) this);
             } else {
                 map.Variant((Animal) this);
             }
