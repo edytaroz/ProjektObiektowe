@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.scene.layout.GridPane;
 import org.agh.ics.oop.gui.App;
@@ -18,6 +19,7 @@ public class SimulationEngine implements IEngine, Runnable {
     private ArrayList<Animal> animals;
     App app;
     GridPane gridPane;
+    GridPane stat;
     int numPlants;
     boolean saveStats;
     boolean isPaused = false;
@@ -25,13 +27,14 @@ public class SimulationEngine implements IEngine, Runnable {
     public SimulationEngine(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy,
                             int satietyLevel, int minMutation, int maxMutation, int width, int height, int numAnimals,
                             int numPlants,
-                            boolean genVariant, boolean animalVariant, boolean mapVariant, boolean portalVariant,
-                            boolean saveStats, App app, GridPane gridPane) {
-        if (mapVariant) {
+                            String genVariant, String animalVariant, String mapVariant, String plantVariant,
+                            boolean saveStats, App app, GridPane gridPane, GridPane stat) {
+        if (Objects.equals(mapVariant, "Globe")) {
             this.map = new KulaZiemska(width, height);
         } else {
             this.map = new Portal(width, height);
         }
+        this.stat = stat;
         this.gridPane = gridPane;
         this.saveStats = saveStats;
         this.animals = new ArrayList<>();
@@ -39,7 +42,7 @@ public class SimulationEngine implements IEngine, Runnable {
         this.numPlants = numPlants;
         map.addPlants(numPlants);
 
-        if (!animalVariant && !genVariant) {
+        if (Objects.equals(animalVariant, "Correct moves") && Objects.equals(genVariant, "Correction genome")) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
@@ -51,7 +54,7 @@ public class SimulationEngine implements IEngine, Runnable {
                     this.animals.add(hedgehog);
                 }
             }
-        } else if (animalVariant && genVariant) {
+        } else if (Objects.equals(animalVariant, "Random moves") && Objects.equals(genVariant, "Random genome")) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
@@ -63,7 +66,7 @@ public class SimulationEngine implements IEngine, Runnable {
                     this.animals.add(hedgehog);
                 }
             }
-        } else if (animalVariant && !genVariant) {
+        } else if (Objects.equals(animalVariant, "Random moves") && Objects.equals(genVariant, "Correction genome")) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
@@ -75,7 +78,7 @@ public class SimulationEngine implements IEngine, Runnable {
                     this.animals.add(hedgehog);
                 }
             }
-        } else if (!animalVariant && genVariant) {
+        } else if (Objects.equals(animalVariant, "Correct moves") && Objects.equals(genVariant, "Random genome")) {
             for (int i = 0; i < numAnimals; i++) {
                 int x = (int) (Math.random() * width);
                 int y = (int) (Math.random() * height);
@@ -145,7 +148,7 @@ public class SimulationEngine implements IEngine, Runnable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    app.update(gridPane,map);
+                    app.update(gridPane,map,stat);
                 }
             });
 

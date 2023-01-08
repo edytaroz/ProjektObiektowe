@@ -80,7 +80,6 @@ public abstract class AbstractMap {
         if (numEmpty > numPlants) {
             for (int i = 0; i < numPlants; i++) {
                 boolean flag = true;
-
                 while (flag) {
                     r = Math.random();
                     if (r < 0.2) {
@@ -242,5 +241,8 @@ public abstract class AbstractMap {
     }
     public boolean Dominant(){
         return isDominant;
+    }
+    public String getNumAnimals(){
+        return String.valueOf(animals.size());
     }
 }

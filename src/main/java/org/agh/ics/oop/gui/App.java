@@ -53,7 +53,7 @@ public class App extends Application {
 
     public void mapScene(Stage primaryStage,int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
                          int minMutation, int maxMutation, int width, int height,
-                         int numAnimals, int numPlants, boolean genVariant, boolean animalVariant, boolean mapVariant, boolean plantVariant,
+                         int numAnimals, int numPlants, String genVariant, String animalVariant, String mapVariant, String plantVariant,
                          boolean saveStats) throws InterruptedException {
         synchronized (this) {
             if (!canStart) {
@@ -63,12 +63,13 @@ public class App extends Application {
 
         Platform.runLater(() -> {
             GridPane gridPane = new GridPane();
+            GridPane stat = new GridPane();
             AbstractMap map;
             SimulationEngine engine;
             engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
                     minMutation, maxMutation, width, height,
                     numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant,
-                    saveStats, this,gridPane);
+                    saveStats, this,gridPane,stat);
             Thread startEngine = new Thread(() -> {
                 synchronized (this) {
                     try {
@@ -105,7 +106,7 @@ public class App extends Application {
             });
             HBox h = new HBox(b,r,getDominant);
             h.setAlignment(Pos.CENTER);
-            VBox vBox = new VBox(h,gridPane);
+            VBox vBox = new VBox(h,stat,gridPane);
 
             Scene scene = new Scene(vBox);
             Stage stage = new Stage();
@@ -225,6 +226,25 @@ public class App extends Application {
         s12.setSnapToTicks(true);
         s12.setShowTickLabels(true);
         VBox h12 = new VBox(l12, s12);
+
+        ChoiceBox c13 = new ChoiceBox();
+        c13.getItems().addAll("Random genome","Correction genome");
+        Label l13 = new Label("Genome variant");
+        //VBox v13 = new VBox(l13,c13);
+        ChoiceBox c14 = new ChoiceBox();
+        c14.getItems().addAll("Random moves","Correct moves");
+        Label l14 = new Label("Animal variant");
+        //VBox v14 = new VBox(l14,c14);
+        ChoiceBox c15 = new ChoiceBox();
+        c15.getItems().addAll("Globe","Hell's gate");
+        Label l15 = new Label("Map variant");
+        //VBox v15 = new VBox(l15,c15);
+        ChoiceBox c16 = new ChoiceBox();
+        c16.getItems().addAll("Equator","Toxic corpses");
+        Label l16 = new Label("Plant variant");
+        //VBox v16 = new VBox(l16,c16);
+
+
         CheckBox s13 = new CheckBox("Random genome variant");
         s13.setIndeterminate(false);
         VBox h13 = new VBox(s13);
@@ -241,7 +261,10 @@ public class App extends Application {
         s17.setSelected(true);
         VBox h17 = new VBox(s17);
         Label label = new Label();
-        VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, grid, hBox);
+        VBox v = new VBox(h1,h2,h3,h4,h5,h6,h7,h8);
+        VBox v2 = new VBox(h9,h10,h11, h12, l13, c13, l14, c14, l15, c15, l16, c16, h17,hBox);
+        HBox vbox = new HBox(v,v2,grid);
+        //VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, l13, c13, l14, c14, l15, c15, l16, c16, h17, grid, hBox);
         GridPane.setHalignment(label, HPos.CENTER);
         Scene scene = new Scene(vbox);
         primaryStage.setTitle("Getting parameters");
@@ -251,7 +274,7 @@ public class App extends Application {
         button.setOnAction(action -> {
             Thread mapCreation = new Thread(() -> {
                 try {
-                    mapScene(primaryStage, (int) s9.getValue(), (int) s6.getValue(), (int) s7.getValue(), (int) s10.getValue(), (int) s5.getValue(), (int) s8.getValue(), (int) s11.getValue(), (int) s12.getValue(), (int) s2.getValue(), (int) s1.getValue(), (int) s3.getValue(), (int) s4.getValue(),(boolean) s13.isSelected(), (boolean) s14.isSelected(), (boolean) s15.isSelected(), (boolean) s16.isSelected(), (boolean) s17.isSelected());
+                    mapScene(primaryStage, (int) s9.getValue(), (int) s6.getValue(), (int) s7.getValue(), (int) s10.getValue(), (int) s5.getValue(), (int) s8.getValue(), (int) s11.getValue(), (int) s12.getValue(), (int) s2.getValue(), (int) s1.getValue(), (int) s3.getValue(), (int) s4.getValue(),(String) c13.getValue(), (String) c14.getValue(), (String) c15.getValue(), (String) c16.getValue(), (boolean) s17.isSelected());
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -328,7 +351,17 @@ public class App extends Application {
         }
     }
 
-    public void update(GridPane gridPane, AbstractMap map) {
+    public void update(GridPane gridPane, AbstractMap map,GridPane stat) {
+        stat.getChildren().clear();
+        Label l1 = new Label("Number of animals: "+ map.getNumAnimals());
+        Label l2 = new Label("Number of plants: " + map.getNumOfGrass());
+        Label l3 = new Label("Number of empty fields: " + map.getNumEmpty());
+        Label l4 = new Label("Most popular genotype: " + map.getMostPopularGenome());
+        Label l5 = new Label("Average animal energy: " + map.getAvgEnergy());
+        Label l6 = new Label("Average lifespan: " + map.getAvgLifespan());
+        VBox v = new VBox(l1,l2,l3,l4,l5,l6);
+        stat.getChildren().addAll(v);
+
         gridPane.setGridLinesVisible(false);
         gridPane.getChildren().clear();
         draw(gridPane,map);
