@@ -16,7 +16,7 @@ public abstract class AbstractMap {
     protected int numOfGrass = 0;
     protected boolean isDominant = false;
     protected int freeFields = 0;
-    protected ArrayList<Vector2d> preferredFields = new ArrayList<>();
+    protected ArrayList<Vector2d> preferredFields = new ArrayList<>(); // fields where plants are likely to grow
     protected int numEmpty; // number of empty cells
 
     public int getNumEmpty() {
@@ -38,8 +38,8 @@ public abstract class AbstractMap {
     public abstract void Variant(Animal animal);
 
     public abstract List<IMapElement> objectAt(Vector2d position);
-    // ----------
 
+    // ----------
     public Vector2d getUpperRight() {
         return upperRight;
     }
