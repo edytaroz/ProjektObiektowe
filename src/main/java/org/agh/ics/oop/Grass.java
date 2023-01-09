@@ -10,4 +10,9 @@ public class Grass extends AbstractMapElement {
     public String getImagePath() {
         return "src/main/resources/grass.jpg";
     }
+
+    @Override
+    public void setTracked(boolean b) {
+
+    }
 }

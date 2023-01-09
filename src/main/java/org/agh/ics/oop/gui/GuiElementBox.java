@@ -31,7 +31,8 @@ public class GuiElementBox {
         border.setCenter(imageView);
         Button b = new Button();
         b.setOnAction(action -> {
-            System.out.println("Button");
+            //System.out.println("Button");
+            element.setTracked(true);
         });
         b.setGraphic(border);
         Label label = new Label(element.toString());

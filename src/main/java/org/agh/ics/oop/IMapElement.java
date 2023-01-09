@@ -5,4 +5,8 @@ public interface IMapElement {
     boolean getDominant();
     String toString();
     String getImagePath();
+
+    void setTracked(boolean b);
+
+    boolean getTracked();
 }

@@ -207,6 +207,15 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     public String getGenes(){
         return this.genes.toString();
     }
+    public String getActive(){
+        return String.valueOf((activeGene%lenOfGenome));
+    }
+    public String getPlantsEaten(){
+        return String.valueOf(this.plantsEaten);
+    }
+    public String getDayOfDeath(){
+        return String.valueOf(this.dayOfDeath);
+    }
     public boolean isDominant = false;
 
     @Override
@@ -215,5 +224,12 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     }
     public void setDominant(boolean bool){
         this.isDominant = bool;
+    }
+    public boolean isTracked = false;
+    public boolean getTracked() {
+        return isTracked;
+    }
+    public void setTracked(boolean b) {
+        isTracked = b;
     }
 }
