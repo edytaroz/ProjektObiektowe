@@ -14,7 +14,7 @@ public class Animal extends AbstractAnimal {
     }
 
     // this is a new animal
-    public Animal(Animal parent1, Animal parent2){
+    public Animal(Animal parent1, Animal parent2) {
         super(parent1, parent2);
     }
 }

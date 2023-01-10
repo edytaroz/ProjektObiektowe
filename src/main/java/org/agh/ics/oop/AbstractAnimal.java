@@ -25,8 +25,8 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     int minMutation; // parameter
     int maxMutation; // parameter
 
-    public AbstractAnimal(int energyLoss,int energy,int childEnergy,int lenOfGenome,int plantEnergy,int satietyLevel,
-                          Vector2d position,int minMutation,int maxMutation) {
+    public AbstractAnimal(int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
+                          Vector2d position, int minMutation, int maxMutation) {
         // parameters section
         this.energy = energy;
         this.childEnergy = childEnergy;
@@ -51,7 +51,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     }
 
     // this is a new animal
-    public AbstractAnimal(Animal parent1, Animal parent2){
+    public AbstractAnimal(Animal parent1, Animal parent2) {
         this.map = parent1.map;
 
         // parameters section
@@ -76,7 +76,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         this.direction = MapDirection.EAST.intToMapDirection(n);
 
         // updating the parents
-        int pEnergy = ((parent1.childEnergy*parent1.energy)/(parent2.energy+ parent1.energy));
+        int pEnergy = ((parent1.childEnergy * parent1.energy) / (parent2.energy + parent1.energy));
         parent1.energy -= pEnergy;
         parent2.energy -= (this.childEnergy - pEnergy);
         parent2.childCount += 1;
@@ -131,7 +131,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         // assumes there are at least 2 animals
         List<Animal> possibleParents = new ArrayList<>();
         for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).energy >= animals.get(i).satietyLevel && animals.get(i).energy >= animals.get(i).childEnergy){
+            if (animals.get(i).energy >= animals.get(i).satietyLevel && animals.get(i).energy >= animals.get(i).childEnergy) {
                 possibleParents.add(animals.get(i));
             }
         }
@@ -139,8 +139,8 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         possibleParents.sort(new Animal.ReproductionComparator());
         List<Animal> children = new ArrayList<>();
 
-        for (int i = 0; i < possibleParents.size()/2; i++) {
-            Animal child = new Animal(possibleParents.get(2*i),possibleParents.get(2*i+1));
+        for (int i = 0; i < possibleParents.size() / 2; i++) {
+            Animal child = new Animal(possibleParents.get(2 * i), possibleParents.get(2 * i + 1));
             children.add(child);
         }
 
@@ -155,7 +155,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
         return this.vector.equals(position);
     }
 
-    public void move(){
+    public void move() {
         // not assuming we can move
         MapDirection newDirection = this.direction;
 
@@ -165,21 +165,22 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
             }
             int x = this.vector.x + newDirection.toUnitVector().x;
             int y = this.vector.y + newDirection.toUnitVector().y;
-            Vector2d v = new Vector2d(x,y);
+            Vector2d v = new Vector2d(x, y);
 
             if (map.canMoveTo(v)) {
-                this.vector = new Vector2d(x,y);
+                this.vector = new Vector2d(x, y);
                 this.direction = newDirection;
             } else {
                 map.Variant((Animal) this);
             }
 
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             System.out.println("NullPointerException at move");
         }
     }
+
     public boolean checkDeath() {
-        if (this.energy <= 0){
+        if (this.energy <= 0) {
             if (this.dayOfDeath == -1) {
                 this.dayOfDeath = this.currentDay;
             }
@@ -189,6 +190,7 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
 
         return false;
     }
+
     public void dailyUpdate() {
         this.currentDay += 1;
         this.age += 1;
@@ -204,31 +206,40 @@ public abstract class AbstractAnimal implements IAnimal, IMapElement {
     public String getImagePath() {
         return "src/main/resources/hedgehog.jpg";
     }
-    public String getGenes(){
+
+    public String getGenes() {
         return this.genes.toString();
     }
-    public String getActive(){
-        return String.valueOf((activeGene%lenOfGenome));
+
+    public String getActive() {
+        return String.valueOf((activeGene % lenOfGenome));
     }
-    public String getPlantsEaten(){
+
+    public String getPlantsEaten() {
         return String.valueOf(this.plantsEaten);
     }
-    public String getDayOfDeath(){
+
+    public String getDayOfDeath() {
         return String.valueOf(this.dayOfDeath);
     }
+
     public boolean isDominant = false;
 
     @Override
     public boolean getDominant() {
         return isDominant;
     }
-    public void setDominant(boolean bool){
+
+    public void setDominant(boolean bool) {
         this.isDominant = bool;
     }
+
     public boolean isTracked = false;
+
     public boolean getTracked() {
         return isTracked;
     }
+
     public void setTracked(boolean b) {
         isTracked = b;
     }

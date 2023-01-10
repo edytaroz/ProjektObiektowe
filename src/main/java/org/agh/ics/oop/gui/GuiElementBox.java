@@ -19,9 +19,9 @@ public class GuiElementBox {
     public GuiElementBox(IMapElement element) {
 
         BorderPane border = new BorderPane();
-        if (element instanceof Plant){
+        if (element instanceof Plant) {
             image = App.getPlant();
-        }else {
+        } else {
             image = App.getAnimal();
         }
         imageView.setImage(image);
@@ -36,23 +36,23 @@ public class GuiElementBox {
         });
         b.setGraphic(border);
         Label label = new Label(element.toString());
-        if (element instanceof Plant){
-            vBox.getChildren().addAll(border,label);
-        }
-        else{
-            vBox.getChildren().addAll(b,label);
+        if (element instanceof Plant) {
+            vBox.getChildren().addAll(border, label);
+        } else {
+            vBox.getChildren().addAll(b, label);
         }
         vBox.setAlignment(Pos.CENTER);
-        if (element.getDominant()){
+        if (element.getDominant()) {
             changeToDominant();
         }
 
     }
 
-    public VBox getGui(){
+    public VBox getGui() {
         return vBox;
     }
-    public void changeToDominant(){
+
+    public void changeToDominant() {
         // #090a0c
         imageView.setStyle("""
                 -fx-border-color:orange ;\s

@@ -119,7 +119,7 @@ public class SimulationEngine implements IEngine, Runnable {
         if (this.saveStats) {
             try {
                 BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", false));
-                output.write("Day,Animals,Plants,Free_fields,Most_popular_genome,Avg_energy,Avg_lifespan");
+                output.write("Day;Animals;Plants;Free_fields;Most_popular_genome;Avg_energy;Avg_lifespan");
                 output.close();
                 fileCreated = true;
             } catch (IOException e) {
@@ -136,9 +136,9 @@ public class SimulationEngine implements IEngine, Runnable {
             if (this.saveStats && fileCreated) {
                 try {
                     BufferedWriter output = new BufferedWriter(new FileWriter("stats.txt", true));
-                    output.append("\n" + day + "," + map.animals.size() + "," + map.getNumOfGrass()+ "," +
-                            map.getFreeFields() + "," + map.getMostPopularGenome() + "," +
-                            map.getAvgEnergy() + "," + map.getAvgLifespan());
+                    output.append("\n" + day + ";" + map.animals.size() + ";" + map.getNumOfGrass()+ ";" +
+                            map.getFreeFields() + ";" + map.getMostPopularGenome() + ";" +
+                            map.getAvgEnergy() + ";" + map.getAvgLifespan());
                     output.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);

@@ -74,8 +74,8 @@ public abstract class AbstractMap {
         int x;
         int y;
         double r;
-        int x1 = upperRight.x/4;
-        int y1 = upperRight.y/4;
+        int x1 = upperRight.x / 4;
+        int y1 = upperRight.y / 4;
 
         if (numEmpty > numPlants) {
             for (int i = 0; i < numPlants; i++) {
@@ -85,7 +85,7 @@ public abstract class AbstractMap {
                     if (r < 0.25) {
                         x = (int) (Math.random() * (upperRight.x + 1));
                         y = (int) (Math.random() * (upperRight.y + 1));
-                    }else{
+                    } else {
                         x = (int) (Math.random() * (upperRight.x + 1));
                         y = (int) (Math.random() * (upperRight.y - (2 * y1)));
                         y += y1;
@@ -203,11 +203,11 @@ public abstract class AbstractMap {
         for (Animal animal : animalsList) {
             sum += animal.age;
         }
-         if (animalsList.size() == 0) {
-             return 0;
-         } else {
-             return sum / animalsList.size();
-         }
+        if (animalsList.size() == 0) {
+            return 0;
+        } else {
+            return sum / animalsList.size();
+        }
     }
 
     public String getMostPopularGenome() {
@@ -232,16 +232,20 @@ public abstract class AbstractMap {
 
         return mostPopularGenome;
     }
-    public Map<Vector2d, List<Animal>> getAnimals(){
+
+    public Map<Vector2d, List<Animal>> getAnimals() {
         return animals;
     }
-    public void setDominant(){
+
+    public void setDominant() {
         isDominant = !isDominant;
     }
-    public boolean Dominant(){
+
+    public boolean Dominant() {
         return isDominant;
     }
-    public String getNumAnimals(){
+
+    public String getNumAnimals() {
         return String.valueOf(animals.size());
     }
 }

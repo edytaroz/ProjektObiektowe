@@ -32,10 +32,12 @@ public class App extends Application {
     boolean isPaused = false;
     static Image plant;
     static Image animal;
-    public static Image getPlant(){
+
+    public static Image getPlant() {
         return plant;
     }
-    public static Image getAnimal(){
+
+    public static Image getAnimal() {
         return animal;
     }
 
@@ -44,14 +46,14 @@ public class App extends Application {
         try {
             plant = new Image(new FileInputStream("src/main/resources/grass.jpg"));
             animal = new Image(new FileInputStream("src/main/resources/hedgehog.jpg"));
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
         createParametersGetter(primaryStage);
         primaryStage.setTitle("Start");
     }
 
-    public void mapScene(Stage primaryStage,int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
+    public void mapScene(Stage primaryStage, int energyLoss, int energy, int childEnergy, int lenOfGenome, int plantEnergy, int satietyLevel,
                          int minMutation, int maxMutation, int width, int height,
                          int numAnimals, int numPlants, String genVariant, String animalVariant, String mapVariant, String plantVariant,
                          boolean saveStats) throws InterruptedException {
@@ -69,7 +71,7 @@ public class App extends Application {
             engine = new SimulationEngine(energyLoss, energy, childEnergy, lenOfGenome, plantEnergy, satietyLevel,
                     minMutation, maxMutation, width, height,
                     numAnimals, numPlants, genVariant, animalVariant, mapVariant, plantVariant,
-                    saveStats, this,gridPane,stat);
+                    saveStats, this, gridPane, stat);
             Thread startEngine = new Thread(() -> {
                 synchronized (this) {
                     try {
@@ -94,19 +96,20 @@ public class App extends Application {
             startEngine.start();
             map = engine.getMap();
             Label r = new Label("           ");
-            draw(gridPane,map);
+            draw(gridPane, map);
             gridPane.setGridLinesVisible(true);
             Button b = pause(engine);
             Button getDominant = new Button("Show dominant");
             getDominant.setOnAction(action -> {
-                if (engine.getState()){
+                if (engine.getState()) {
                     map.setDominant();
                     showDominant(map);
                 }
             });
-            HBox h = new HBox(b,r,getDominant);
+
+            HBox h = new HBox(b, r, getDominant);
             h.setAlignment(Pos.CENTER);
-            VBox vBox = new VBox(h,stat,gridPane);
+            VBox vBox = new VBox(h, stat, gridPane);
 
             Scene scene = new Scene(vBox);
             Stage stage = new Stage();
@@ -228,19 +231,19 @@ public class App extends Application {
         VBox h12 = new VBox(l12, s12);
 
         ChoiceBox c13 = new ChoiceBox();
-        c13.getItems().addAll("Random genome","Correction genome");
+        c13.getItems().addAll("Random genome", "Correction genome");
         Label l13 = new Label("Genome variant");
         //VBox v13 = new VBox(l13,c13);
         ChoiceBox c14 = new ChoiceBox();
-        c14.getItems().addAll("Random moves","Correct moves");
+        c14.getItems().addAll("Random moves", "Correct moves");
         Label l14 = new Label("Animal variant");
         //VBox v14 = new VBox(l14,c14);
         ChoiceBox c15 = new ChoiceBox();
-        c15.getItems().addAll("Globe","Hell's gate");
+        c15.getItems().addAll("Globe", "Hell's gate");
         Label l15 = new Label("Map variant");
         //VBox v15 = new VBox(l15,c15);
         ChoiceBox c16 = new ChoiceBox();
-        c16.getItems().addAll("Equator","Toxic corpses");
+        c16.getItems().addAll("Equator", "Toxic corpses");
         Label l16 = new Label("Plant variant");
         //VBox v16 = new VBox(l16,c16);
 
@@ -261,9 +264,9 @@ public class App extends Application {
         s17.setSelected(true);
         VBox h17 = new VBox(s17);
         Label label = new Label();
-        VBox v = new VBox(h1,h2,h3,h4,h5,h6,h7,h8);
-        VBox v2 = new VBox(h9,h10,h11, h12, l13, c13, l14, c14, l15, c15, l16, c16, h17,hBox);
-        HBox vbox = new HBox(v,v2,grid);
+        VBox v = new VBox(h1, h2, h3, h4, h5, h6, h7, h8);
+        VBox v2 = new VBox(h9, h10, h11, h12, l13, c13, l14, c14, l15, c15, l16, c16, h17, hBox);
+        HBox vbox = new HBox(v, v2, grid);
         //VBox vbox = new VBox(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, l13, c13, l14, c14, l15, c15, l16, c16, h17, grid, hBox);
         GridPane.setHalignment(label, HPos.CENTER);
         Scene scene = new Scene(vbox);
@@ -274,7 +277,7 @@ public class App extends Application {
         button.setOnAction(action -> {
             Thread mapCreation = new Thread(() -> {
                 try {
-                    mapScene(primaryStage, (int) s9.getValue(), (int) s6.getValue(), (int) s7.getValue(), (int) s10.getValue(), (int) s5.getValue(), (int) s8.getValue(), (int) s11.getValue(), (int) s12.getValue(), (int) s2.getValue(), (int) s1.getValue(), (int) s3.getValue(), (int) s4.getValue(),(String) c13.getValue(), (String) c14.getValue(), (String) c15.getValue(), (String) c16.getValue(), (boolean) s17.isSelected());
+                    mapScene(primaryStage, (int) s9.getValue(), (int) s6.getValue(), (int) s7.getValue(), (int) s10.getValue(), (int) s5.getValue(), (int) s8.getValue(), (int) s11.getValue(), (int) s12.getValue(), (int) s2.getValue(), (int) s1.getValue(), (int) s3.getValue(), (int) s4.getValue(), (String) c13.getValue(), (String) c14.getValue(), (String) c15.getValue(), (String) c16.getValue(), (boolean) s17.isSelected());
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -349,15 +352,15 @@ public class App extends Application {
         }
     }
 
-    public void update(GridPane gridPane, AbstractMap map,GridPane stat) {
+    public void update(GridPane gridPane, AbstractMap map, GridPane stat) {
         stat.getChildren().clear();
-        Label l1 = new Label("Number of animals: "+ map.getNumAnimals());
+        Label l1 = new Label("Number of animals: " + map.getNumAnimals());
         Label l2 = new Label("Number of plants: " + map.getNumOfGrass());
         Label l3 = new Label("Number of empty fields: " + map.getNumEmpty());
         Label l4 = new Label("Most popular genotype: " + map.getMostPopularGenome());
         Label l5 = new Label("Average animal energy: " + map.getAvgEnergy());
         Label l6 = new Label("Average lifespan: " + map.getAvgLifespan());
-        VBox v = new VBox(l1,l2,l3,l4,l5,l6);
+        VBox v = new VBox(l1, l2, l3, l4, l5, l6);
 
         boolean isTracked = false;
         VBox trackedVBox = new VBox();
@@ -376,22 +379,21 @@ public class App extends Application {
                             element = list.get(1);
                         }
                     }
-                    if (element.getTracked() && element instanceof Animal){
+                    if (element.getTracked() && element instanceof Animal) {
                         animal1 = (Animal) element;
                         isTracked = true;
-                        Label l7 = new Label("Genome: "+ animal1.getGenes());
+                        Label l7 = new Label("Genome: " + animal1.getGenes());
                         Label l8 = new Label("Active part: " + animal1.getActive());
                         Label l9 = new Label("Energy: " + animal1.getEnergy());
                         Label l10 = new Label("Plants eaten: " + animal1.getPlantsEaten());
                         Label l11 = new Label("Number of children: " + animal1.getChildCount());
                         Label l12;
-                        if (animal1.checkDeath()){
+                        if (animal1.checkDeath()) {
                             l12 = new Label("Day of death: " + animal1.getDayOfDeath());
-                        }
-                        else{
+                        } else {
                             l12 = new Label("Lifespan: " + animal1.getAge());
                         }
-                        trackedVBox = new VBox(l7,l8,l9,l10,l11,l12);
+                        trackedVBox = new VBox(l7, l8, l9, l10, l11, l12);
                     }
                 }
             }
@@ -409,13 +411,13 @@ public class App extends Application {
 
 
          */
-        stat.getChildren().addAll(new HBox(v,trackedVBox));
+        stat.getChildren().addAll(new HBox(v, trackedVBox));
 
         gridPane.setGridLinesVisible(false);
         gridPane.getChildren().clear();
-        draw(gridPane,map);
+        draw(gridPane, map);
         gridPane.setGridLinesVisible(true);
-        if (map.Dominant()){
+        if (map.Dominant()) {
             showDominant(map);
         }
     }
@@ -433,14 +435,15 @@ public class App extends Application {
 
         return button;
     }
-    public void showDominant(AbstractMap map){
+
+    public void showDominant(AbstractMap map) {
         String popularGenome = map.getMostPopularGenome();
-        Map<Vector2d,List<Animal>> hash = map.getAnimals();
-        for(List<Animal> animalList : hash.values()){
-            for(Animal animal : animalList){
-                if (Objects.equals(popularGenome, animal.getGenes())){
+        Map<Vector2d, List<Animal>> hash = map.getAnimals();
+        for (List<Animal> animalList : hash.values()) {
+            for (Animal animal : animalList) {
+                if (Objects.equals(popularGenome, animal.getGenes())) {
                     animal.setDominant(true);
-                }else {
+                } else {
                     animal.setDominant(false);
                 }
             }

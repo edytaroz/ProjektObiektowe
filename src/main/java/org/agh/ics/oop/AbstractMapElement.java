@@ -8,10 +8,12 @@ public abstract class AbstractMapElement implements IMapElement {
     public boolean getDominant() {
         return isDominant;
     }
+
     public boolean getTracked() {
         return isTracked;
     }
-    public void changeDominant(){
+
+    public void changeDominant() {
         this.isDominant = !isDominant;
     }
 
