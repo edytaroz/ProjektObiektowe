@@ -18,6 +18,7 @@ public abstract class AbstractMap {
     protected int freeFields = 0;
     protected ArrayList<Vector2d> preferredFields = new ArrayList<>(); // fields where plants are likely to grow
     protected int numEmpty; // number of empty cells
+    protected boolean equator = false;
 
     public int getNumEmpty() {
         int n = 0;
@@ -27,7 +28,7 @@ public abstract class AbstractMap {
             }
         }
 
-        return ((upperRight.x + 1) * (upperRight.y + 1)) - (animals.size() + plants.size() - n);
+        return (((upperRight.x) * (upperRight.y)) - (animals.size() + numOfGrass - n) - 1);
     }
 
     // abstract classes
@@ -40,6 +41,7 @@ public abstract class AbstractMap {
     public abstract List<IMapElement> objectAt(Vector2d position);
 
     // ----------
+
     public Vector2d getUpperRight() {
         return upperRight;
     }
@@ -71,15 +73,24 @@ public abstract class AbstractMap {
     }
 
     public void addPlants(int numPlants) {
-        int x;
-        int y;
+        int x, x1;
+        int y, y1;
         double r;
-        int x1 = upperRight.x / 4;
-        int y1 = upperRight.y / 4;
+
+        if (equator) {
+            //equator
+            x1 = upperRight.y / 4;
+            y1 = upperRight.x;
+        } else {
+            // jungle
+            x1 = upperRight.x / 4;
+            y1 = upperRight.y / 4;
+        }
 
         if (numEmpty > numPlants) {
             for (int i = 0; i < numPlants; i++) {
                 boolean flag = true;
+
                 while (flag) {
                     r = Math.random();
                     if (r < 0.25) {
@@ -90,6 +101,7 @@ public abstract class AbstractMap {
                         y = (int) (Math.random() * (upperRight.y - (2 * y1)));
                         y += y1;
                     }
+
                     Vector2d vec = new Vector2d(x, y);
 
                     if (!isOccupiedByGrass(vec)) {
@@ -103,7 +115,8 @@ public abstract class AbstractMap {
     }
 
     public int getNumOfGrass() {
-        return plants.size();
+        return numOfGrass;
+        //return plants.size();
     }
 
     public int getFreeFields() {
