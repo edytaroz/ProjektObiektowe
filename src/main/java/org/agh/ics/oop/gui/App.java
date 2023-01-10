@@ -318,13 +318,11 @@ public class App extends Application {
             GridPane.setHalignment(label, HPos.CENTER);
             gridPane.add(label, 0, i);
         }
-
         for (int i = 0; i < map.getUpperRight().x + 2; i++) {
             for (int j = 0; j < map.getUpperRight().y + 2; j++) {
                 if (map.isOccupied(new Vector2d(i, j))) {
                     List<IMapElement> list = map.objectAt(new Vector2d(i, j));
                     IMapElement element;
-
                     if (list.size() == 1) {
                         element = list.get(0);
                     } else {
@@ -360,7 +358,58 @@ public class App extends Application {
         Label l5 = new Label("Average animal energy: " + map.getAvgEnergy());
         Label l6 = new Label("Average lifespan: " + map.getAvgLifespan());
         VBox v = new VBox(l1,l2,l3,l4,l5,l6);
-        stat.getChildren().addAll(v);
+
+        boolean isTracked = false;
+        VBox trackedVBox = new VBox();
+        Animal animal1;
+        for (int i = 0; i < map.getUpperRight().x + 2; i++) {
+            for (int j = 0; j < map.getUpperRight().y + 2; j++) {
+                if (map.isOccupied(new Vector2d(i, j))) {
+                    List<IMapElement> list = map.objectAt(new Vector2d(i, j));
+                    IMapElement element;
+                    if (list.size() == 1) {
+                        element = list.get(0);
+                    } else {
+                        if (!(list.get(0) instanceof Plant)) {
+                            element = list.get(0);
+                        } else {
+                            element = list.get(1);
+                        }
+                    }
+                    if (element.getTracked() && element instanceof Animal){
+                        animal1 = (Animal) element;
+                        isTracked = true;
+                        Label l7 = new Label("Genome: "+ animal1.getGenes());
+                        Label l8 = new Label("Active part: " + animal1.getActive());
+                        Label l9 = new Label("Energy: " + animal1.getEnergy());
+                        Label l10 = new Label("Plants eaten: " + animal1.getPlantsEaten());
+                        Label l11 = new Label("Number of children: " + animal1.getChildCount());
+                        Label l12;
+                        if (animal1.checkDeath()){
+                            l12 = new Label("Day of death: " + animal1.getDayOfDeath());
+                        }
+                        else{
+                            l12 = new Label("Lifespan: " + animal1.getAge());
+                        }
+                        trackedVBox = new VBox(l7,l8,l9,l10,l11,l12);
+                    }
+                }
+            }
+        }
+        /*
+        if (isTracked){
+            Label l7 = new Label("Genome: "+ animal1.getNumAnimals());
+            Label l8 = new Label("Active part: " + map.getNumOfGrass());
+            Label l9 = new Label("Energy: " + map.getNumEmpty());
+            Label l10 = new Label("Plants eaten: " + map.getMostPopularGenome());
+            Label l11 = new Label("Number of children: " + map.getAvgEnergy());
+            Label l12 = new Label("Lifespan: " + map.getAvgLifespan());
+            Label l13 = new Label("Day of death: " + map.getAvgLifespan());
+        }
+
+
+         */
+        stat.getChildren().addAll(new HBox(v,trackedVBox));
 
         gridPane.setGridLinesVisible(false);
         gridPane.getChildren().clear();

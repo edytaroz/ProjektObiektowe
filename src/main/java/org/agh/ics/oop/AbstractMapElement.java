@@ -1,11 +1,15 @@
 package org.agh.ics.oop;
 
 public abstract class AbstractMapElement implements IMapElement {
+    public boolean isTracked = false;
     public boolean isDominant = false;
 
     @Override
     public boolean getDominant() {
         return isDominant;
+    }
+    public boolean getTracked() {
+        return isTracked;
     }
     public void changeDominant(){
         this.isDominant = !isDominant;

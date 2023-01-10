@@ -82,13 +82,12 @@ public abstract class AbstractMap {
                 boolean flag = true;
                 while (flag) {
                     r = Math.random();
-                    if (r < 0.2) {
+                    if (r < 0.25) {
                         x = (int) (Math.random() * (upperRight.x + 1));
                         y = (int) (Math.random() * (upperRight.y + 1));
                     }else{
-                        x = (int) (Math.random() * (upperRight.x - x1));
-                        y = (int) (Math.random() * (upperRight.y - y1));
-                        x += x1;
+                        x = (int) (Math.random() * (upperRight.x + 1));
+                        y = (int) (Math.random() * (upperRight.y - (2 * y1)));
                         y += y1;
                     }
                     Vector2d vec = new Vector2d(x, y);

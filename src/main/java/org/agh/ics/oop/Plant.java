@@ -48,4 +48,14 @@ public class Plant implements IMapElement {
     public String getImagePath() {
         return "src/main/resources/grass.jpg";
     }
+
+    @Override
+    public void setTracked(boolean b) {
+
+    }
+
+    @Override
+    public boolean getTracked() {
+        return false;
+    }
 }
