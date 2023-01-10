@@ -29,10 +29,14 @@ public class SimulationEngine implements IEngine, Runnable {
                             int numPlants,
                             String genVariant, String animalVariant, String mapVariant, String plantVariant,
                             boolean saveStats, App app, GridPane gridPane, GridPane stat) {
-        if (Objects.equals(mapVariant, "Globe")) {
+        if (Objects.equals(mapVariant, "Globe") && Objects.equals(plantVariant,"Toxic corpses")) {
+            this.map = new ToxicCorpses(width, height);
+        } else if (Objects.equals(mapVariant,"Globe") && Objects.equals(plantVariant, "Equator")) {
             this.map = new KulaZiemska(width, height);
-        } else {
+        }else if (Objects.equals(mapVariant,"Hell's gate") && Objects.equals(plantVariant, "Equator")){
             this.map = new Portal(width, height);
+        }else {
+            this.map = new ToxicHell(width, height);
         }
         this.stat = stat;
         this.gridPane = gridPane;

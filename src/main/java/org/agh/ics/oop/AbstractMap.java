@@ -16,9 +16,9 @@ public abstract class AbstractMap {
     protected int numOfGrass = 0;
     protected boolean isDominant = false;
     protected int freeFields = 0;
-    protected ArrayList<Vector2d> preferredFields = new ArrayList<>(); // fields where plants are likely to grow
+    protected List<Vector2d> preferredFields = new ArrayList<>(); // fields where plants are likely to grow
     protected int numEmpty; // number of empty cells
-    protected boolean equator = false;
+    protected Map<Vector2d,Integer> toxicFields = new HashMap<>();
 
     public int getNumEmpty() {
         int n = 0;
@@ -28,7 +28,7 @@ public abstract class AbstractMap {
             }
         }
 
-        return (((upperRight.x) * (upperRight.y)) - (animals.size() + numOfGrass - n) - 1);
+        return ((upperRight.x + 1) * (upperRight.y + 1)) - (animals.size() + plants.size() - n);
     }
 
     // abstract classes
@@ -41,7 +41,6 @@ public abstract class AbstractMap {
     public abstract List<IMapElement> objectAt(Vector2d position);
 
     // ----------
-
     public Vector2d getUpperRight() {
         return upperRight;
     }
@@ -73,35 +72,24 @@ public abstract class AbstractMap {
     }
 
     public void addPlants(int numPlants) {
-        int x, x1;
-        int y, y1;
+        int x;
+        int y;
         double r;
-
-        if (equator) {
-            //equator
-            x1 = upperRight.y / 4;
-            y1 = upperRight.x;
-        } else {
-            // jungle
-            x1 = upperRight.x / 4;
-            y1 = upperRight.y / 4;
-        }
+        int y1 = (int) (upperRight.y * 0.4);
 
         if (numEmpty > numPlants) {
             for (int i = 0; i < numPlants; i++) {
                 boolean flag = true;
-
                 while (flag) {
                     r = Math.random();
                     if (r < 0.25) {
                         x = (int) (Math.random() * (upperRight.x + 1));
                         y = (int) (Math.random() * (upperRight.y + 1));
-                    } else {
+                    }else{
                         x = (int) (Math.random() * (upperRight.x + 1));
                         y = (int) (Math.random() * (upperRight.y - (2 * y1)));
                         y += y1;
                     }
-
                     Vector2d vec = new Vector2d(x, y);
 
                     if (!isOccupiedByGrass(vec)) {
@@ -115,8 +103,7 @@ public abstract class AbstractMap {
     }
 
     public int getNumOfGrass() {
-        return numOfGrass;
-        //return plants.size();
+        return plants.size();
     }
 
     public int getFreeFields() {
@@ -130,6 +117,11 @@ public abstract class AbstractMap {
             if (animalsList.get(i).dayOfDeath != -1) {
                 toDeleteFromList.add(animalsList.get(i));
                 deadAnimals.add(animalsList.get(i));
+                if (toxicFields.containsKey(animalsList.get(i).vector)){
+                    toxicFields.merge(animalsList.get(i).vector,1,Integer::sum);
+                }else {
+                    toxicFields.put(animalsList.get(i).vector,1);
+                }
                 freeFields += 1;
             }
         }
@@ -200,7 +192,6 @@ public abstract class AbstractMap {
 
     public int getAvgEnergy() {
         int sum = 0;
-
         for (Animal animal : animalsList) {
             sum += animal.energy;
         }
@@ -214,16 +205,14 @@ public abstract class AbstractMap {
 
     public int getAvgLifespan() {
         int sum = 0;
-
         for (Animal animal : animalsList) {
             sum += animal.age;
         }
-
-        if (animalsList.size() == 0) {
-            return 0;
-        } else {
-            return sum / animalsList.size();
-        }
+         if (animalsList.size() == 0) {
+             return 0;
+         } else {
+             return sum / animalsList.size();
+         }
     }
 
     public String getMostPopularGenome() {
@@ -248,20 +237,16 @@ public abstract class AbstractMap {
 
         return mostPopularGenome;
     }
-
-    public Map<Vector2d, List<Animal>> getAnimals() {
+    public Map<Vector2d, List<Animal>> getAnimals(){
         return animals;
     }
-
-    public void setDominant() {
+    public void setDominant(){
         isDominant = !isDominant;
     }
-
-    public boolean Dominant() {
+    public boolean Dominant(){
         return isDominant;
     }
-
-    public String getNumAnimals() {
+    public String getNumAnimals(){
         return String.valueOf(animals.size());
     }
 }
