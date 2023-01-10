@@ -187,6 +187,7 @@ public abstract class AbstractMap {
 
     public int getAvgEnergy() {
         int sum = 0;
+
         for (Animal animal : animalsList) {
             sum += animal.energy;
         }
@@ -200,9 +201,11 @@ public abstract class AbstractMap {
 
     public int getAvgLifespan() {
         int sum = 0;
+
         for (Animal animal : animalsList) {
             sum += animal.age;
         }
+
         if (animalsList.size() == 0) {
             return 0;
         } else {
